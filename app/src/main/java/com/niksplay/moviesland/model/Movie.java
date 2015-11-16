@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.google.gson.annotations.SerializedName;
+import com.niksplay.moviesland.network.MoviesService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,9 +16,8 @@ import java.util.Locale;
 /**
  * Created by nikita on 15.11.15.
  */
-public class Movie implements Parcelable {
+public class Movie implements IMovie, Parcelable {
 
-    public boolean adult;
     @SerializedName("backdrop_path")
     public String backdropPath;
     @SerializedName("genre_ids")
@@ -55,7 +55,6 @@ public class Movie implements Parcelable {
     }
 
     private Movie(Parcel parcel) {
-        adult = parcel.readInt() == 1;
         backdropPath = parcel.readString();
         genreIds = parcel.createIntArray();
         id = parcel.readLong();
@@ -72,7 +71,6 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(adult ? 1 : 0);
         parcel.writeString(backdropPath);
         parcel.writeIntArray(genreIds);
         parcel.writeLong(id);
@@ -108,4 +106,111 @@ public class Movie implements Parcelable {
     }
 
 
+    @Override
+    public String getBackdropPath() {
+        return backdropPath;
+    }
+
+    @Override
+    public int[] getGenreIds() {
+        return genreIds;
+    }
+
+    @Override
+    public long getId() {
+        return id;
+    }
+
+    @Override
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String getOverview() {
+        return overview;
+    }
+
+    @Override
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    @Override
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    @Override
+    public float getPopularity() {
+        return popularity;
+    }
+
+    @Override
+    public boolean isVideo() {
+        return video;
+    }
+
+    @Override
+    public float getVoteAverage() {
+        return voteAverage;
+    }
+
+    @Override
+    public int getVoteCount() {
+        return voteCount;
+    }
+
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+    }
+
+    public void setGenreIds(int[] genreIds) {
+        this.genreIds = genreIds;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+    public void setPopularity(float popularity) {
+        this.popularity = popularity;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setVideo(boolean video) {
+        this.video = video;
+    }
+
+    public void setVoteAverage(float voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
+    }
 }

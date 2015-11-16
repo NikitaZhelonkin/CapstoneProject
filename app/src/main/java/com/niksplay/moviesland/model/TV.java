@@ -12,4 +12,19 @@ public class TV extends Movie {
     public String originalTitle;
     @SerializedName("name")
     public String title;
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
+
+    @Override
+    public String getReleaseDate() {
+        return releaseDate;
+    }
 }

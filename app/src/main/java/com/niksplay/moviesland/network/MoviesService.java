@@ -23,79 +23,81 @@ import retrofit.http.QueryMap;
  */
 public interface MoviesService {
 
-    String API_URL = "http://api.themoviedb.org/3";
-    String API_KEY = "YOUR API KEY";
+    String API_KEY = "cee3889329734d105d1af14dfe7e17a4";
 
-    @GET("/discover/movie")
+    String API_URL = "http://api.themoviedb.org/3/";
+    String IMAGES_URL = "http://image.tmdb.org/t/p/";
+
+    @GET("discover/movie")
     Call<PagedResponse<Movie>> discoverMovie(@QueryMap Map<String, String> params);
 
-    @GET("/discover/tv")
+    @GET("discover/tv")
     Call<PagedResponse<TV>> discoverTv(@QueryMap Map<String, String> params);
 
-    @GET("/find/{id}")
+    @GET("find/{id}")
     Call<FindResponse> find(@Path("id") long id);
 
-    @GET("/genres/{type}/list")
+    @GET("genre/{type}/list")
     Call<GenresResponse> genresList(@Path("type") String type);
 
-    @GET("/movie/{id}")
+    @GET("movie/{id}")
     Call<Movie> getMovie(@Path("id") long id);
 
-    @GET("/movie/{id}/images")
+    @GET("movie/{id}/images")
     Call<ImagesResponse> getMovieImages(@Path("id") long id);
 
-    @GET("/movie/{id}/similar")
+    @GET("movie/{id}/similar")
     Call<PagedResponse<Movie>> getMovieSimilar(@Path("id") long id);
 
-    @GET("/movie/{id}/reviews")
+    @GET("movie/{id}/reviews")
     Call<PagedResponse<Review>> getMovieReviews(@Path("id") long id);
 
-    @GET("/movie/now_playing")
+    @GET("movie/now_playing")
     Call<PagedResponse<Movie>> moviesNowPlaying();
 
-    @GET("/movie/popular")
+    @GET("movie/popular")
     Call<PagedResponse<Movie>> moviesPopular();
 
-    @GET("/movie/top_rated")
+    @GET("movie/top_rated")
     Call<PagedResponse<Movie>> moviesTopRated();
 
-    @GET("/movie/upcoming")
+    @GET("movie/upcoming")
     Call<PagedResponse<Movie>> moviesUpcoming();
 
-    @GET("/tv/{id}")
+    @GET("tv/{id}")
     Call<TV> getTV(@Path("id") long id);
 
-    @GET("/tv/{id}/images")
+    @GET("tv/{id}/images")
     Call<ImagesResponse> getTVImages(@Path("id") long id);
 
-    @GET("/tv/{id}/similar")
+    @GET("tv/{id}/similar")
     Call<PagedResponse<TV>> getTVSimilar(@Path("id") long id);
 
-    @GET("/tv/on_the_air")
+    @GET("tv/on_the_air")
     Call<PagedResponse<TV>> tvOnTheAir();
 
-    @GET("/tv/airing_today")
+    @GET("tv/airing_today")
     Call<PagedResponse<TV>> tvAiringToday();
 
-    @GET("/tv/top_rated")
+    @GET("tv/top_rated")
     Call<PagedResponse<TV>> tvTopRated();
 
-    @GET("/tv/popular")
+    @GET("tv/popular")
     Call<PagedResponse<TV>> tvPopular();
 
-    @GET("/person/{id}")
+    @GET("person/{id}")
     Call<Person> getPerson(@Path("id") long id);
 
-    @GET("/person/{id}/combined_credits")
+    @GET("person/{id}/combined_credits")
     Call<CreditsResponse> personCredits(@Path("id") long id);
 
-    @GET("/search/movie")
+    @GET("search/movie")
     Call<PagedResponse<Movie>> searchMovie(@Query("query") String query, @Query("page") int page);
 
-    @GET("/search/tv")
+    @GET("search/tv")
     Call<PagedResponse<TV>> searchTV(@Query("query") String query, @Query("page") int page);
 
-    @GET("/search/person")
+    @GET("search/person")
     Call<PagedResponse<Person>> searchPerson(@Query("query") String query, @Query("page") int page);
 
 

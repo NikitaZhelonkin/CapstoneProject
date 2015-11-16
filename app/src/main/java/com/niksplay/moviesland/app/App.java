@@ -1,8 +1,10 @@
 package com.niksplay.moviesland.app;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.niksplay.moviesland.Constants;
+import com.niksplay.moviesland.managers.Genres;
 import com.niksplay.moviesland.network.MoviesService;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Interceptor;
@@ -12,6 +14,7 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
+import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 
 /**
@@ -30,6 +33,8 @@ public class App extends Application {
         sInstance = this;
 
         initMoviesApiClient();
+
+        Genres.loadGenres();
     }
 
     private void initMoviesApiClient() {
@@ -38,18 +43,25 @@ public class App extends Application {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request original = chain.request();
+
+                HttpUrl url = original.httpUrl()
+                        .newBuilder()
+                        .addQueryParameter(Constants.PARAM_API_KEY, MoviesService.API_KEY)
+                        .build();
+
                 Request request = original.newBuilder()
-                        .url(new HttpUrl.Builder()
-                                .host(original.url().toString())
-                                .addEncodedQueryParameter(Constants.PARAM_API_KEY, MoviesService.API_KEY).build())
+                        .url(url)
                         .method(original.method(), original.body())
                         .build();
+
+                Log.e("TAG>>>",url.toString());
                 return chain.proceed(request);
             }
         });
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(MoviesService.API_URL)
                 .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
         mMoviesApi = retrofit.create(MoviesService.class);
     }
