@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import com.niksplay.moviesland.managers.Genres;
 import com.niksplay.moviesland.model.Genre;
 import com.niksplay.moviesland.model.IMovie;
+import com.niksplay.moviesland.model.Movie;
+import com.niksplay.moviesland.model.Person;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,6 +40,22 @@ public class Utils {
             if(genre!=null){
                 builder.append(genre.name).append(", ");
             }
+        }
+        if (builder.length() > 0) {
+            builder.delete(builder.length() - 2, builder.length());
+            return builder.toString();
+        }else{
+            return "";
+        }
+    }
+
+    public static String formatKnownFor(Person person){
+        StringBuilder builder = new StringBuilder();
+        if(person.knownFor==null){
+            return "";
+        }
+        for (Movie movie : person.knownFor) {
+            builder.append(movie.title).append(", ");
         }
         if (builder.length() > 0) {
             builder.delete(builder.length() - 2, builder.length());

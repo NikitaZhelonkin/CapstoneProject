@@ -2,6 +2,8 @@ package com.niksplay.moviesland.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by nikita on 15.11.15.
  */
@@ -15,4 +17,6 @@ public class Person {
     public String placeOfBirth;
     @SerializedName("profile_path")
     public String profilePath;
+    @SerializedName("known_for")
+    public List<Movie> knownFor;
 }

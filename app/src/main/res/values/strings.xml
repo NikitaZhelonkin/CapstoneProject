@@ -18,4 +18,6 @@
     <string name="tab_now_playing">Now Playing</string>
     <string name="tab_on_the_air">On the air</string>
     <string name="tab_airing_today">Airing today</string>
+
+    <string name="known_for">Known for: %s</string>
 </resources>

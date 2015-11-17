@@ -43,6 +43,12 @@ public abstract  class PagingListFragment<T> extends Fragment implements LoaderM
         getLoaderManager().initLoader(0, null, this);
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPage = 0;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -85,6 +85,9 @@ public interface MoviesService {
     @GET("tv/popular")
     Call<PagedResponse<TV>> tvPopular(@Query("page") int page);
 
+    @GET("person/popular")
+    Call<PagedResponse<Person>> personsPopular(@Query("page") int page);
+
     @GET("person/{id}")
     Call<Person> getPerson(@Path("id") long id);
 
