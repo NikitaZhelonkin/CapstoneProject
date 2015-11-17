@@ -53,16 +53,16 @@ public interface MoviesService {
     Call<PagedResponse<Review>> getMovieReviews(@Path("id") long id);
 
     @GET("movie/now_playing")
-    Call<PagedResponse<Movie>> moviesNowPlaying();
+    Call<PagedResponse<Movie>> moviesNowPlaying(@Query("page") int page);
 
     @GET("movie/popular")
-    Call<PagedResponse<Movie>> moviesPopular();
+    Call<PagedResponse<Movie>> moviesPopular(@Query("page") int page);
 
     @GET("movie/top_rated")
-    Call<PagedResponse<Movie>> moviesTopRated();
+    Call<PagedResponse<Movie>> moviesTopRated(@Query("page") int page);
 
     @GET("movie/upcoming")
-    Call<PagedResponse<Movie>> moviesUpcoming();
+    Call<PagedResponse<Movie>> moviesUpcoming(@Query("page") int page);
 
     @GET("tv/{id}")
     Call<TV> getTV(@Path("id") long id);
@@ -74,16 +74,16 @@ public interface MoviesService {
     Call<PagedResponse<TV>> getTVSimilar(@Path("id") long id);
 
     @GET("tv/on_the_air")
-    Call<PagedResponse<TV>> tvOnTheAir();
+    Call<PagedResponse<TV>> tvOnTheAir(@Query("page") int page);
 
     @GET("tv/airing_today")
-    Call<PagedResponse<TV>> tvAiringToday();
+    Call<PagedResponse<TV>> tvAiringToday(@Query("page") int page);
 
     @GET("tv/top_rated")
-    Call<PagedResponse<TV>> tvTopRated();
+    Call<PagedResponse<TV>> tvTopRated(@Query("page") int page);
 
     @GET("tv/popular")
-    Call<PagedResponse<TV>> tvPopular();
+    Call<PagedResponse<TV>> tvPopular(@Query("page") int page);
 
     @GET("person/{id}")
     Call<Person> getPerson(@Path("id") long id);

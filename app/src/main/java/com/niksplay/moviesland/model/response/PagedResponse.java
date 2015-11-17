@@ -8,6 +8,8 @@ import java.util.List;
 public class PagedResponse<T> {
 
     private int page;
+    private int total_pages;
+    private int total_results;
 
     private List<T> results;
 
@@ -25,5 +27,21 @@ public class PagedResponse<T> {
 
     public void setResults(List<T> results) {
         this.results = results;
+    }
+
+    public int getTotal_pages(){
+        return total_pages;
+    }
+
+    public int getTotal_results() {
+        return total_results;
+    }
+
+    public void setTotal_pages(int total_pages) {
+        this.total_pages = total_pages;
+    }
+
+    public void setTotal_results(int total_results) {
+        this.total_results = total_results;
     }
 }

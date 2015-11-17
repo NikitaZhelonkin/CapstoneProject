@@ -13,6 +13,7 @@ import com.niksplay.moviesland.utils.ImageUrls;
 import com.niksplay.moviesland.utils.Utils;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -23,10 +24,18 @@ import butterknife.ButterKnife;
  */
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
 
-    private List<? extends IMovie> mData;
+    private List<IMovie> mData;
+
+    public void addAll(List<? extends IMovie> data){
+        if(mData == null){
+            mData = new ArrayList<>();
+        }
+        mData.addAll(data);
+        notifyDataSetChanged();
+    }
 
     public void setData(List<? extends IMovie> data) {
-        mData = data;
+        mData = new ArrayList<>(data);
         notifyDataSetChanged();
     }
 
