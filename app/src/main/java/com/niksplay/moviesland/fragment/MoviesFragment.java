@@ -75,7 +75,7 @@ public class MoviesFragment extends NavigationFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_catalog:
-                getActivity().startActivity(new Intent(getActivity(), CatalogActivity.class));
+                getActivity().startActivity(CatalogActivity.createIntent(getActivity(), CatalogActivity.CatalogType.MOVIE));
                 return true;
             case R.id.action_search:
                 getActivity().startActivity(new Intent(getActivity(), SearchActivity.class));

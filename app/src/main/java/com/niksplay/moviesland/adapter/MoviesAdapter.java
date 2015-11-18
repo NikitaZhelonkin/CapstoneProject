@@ -35,7 +35,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     }
 
     public void setData(List<? extends IMedia> data) {
-        mData = new ArrayList<>(data);
+        mData = data == null ? null : new ArrayList<>(data);
         notifyDataSetChanged();
     }
 

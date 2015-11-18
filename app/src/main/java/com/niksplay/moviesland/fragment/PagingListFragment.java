@@ -29,7 +29,6 @@ public abstract class PagingListFragment<T> extends Fragment implements LoaderMa
 
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
-
     @Bind(R.id.progress_bar)
     ProgressBar mProgressBar;
 

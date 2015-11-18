@@ -23,5 +23,8 @@
     <string name="tab_on_the_air">On the air</string>
     <string name="tab_airing_today">Airing today</string>
 
+    <string name="spinner_year_default">All years</string>
+    <string name="spinner_genres_default">All genres</string>
+
     <string name="known_for">Known for: %s</string>
 </resources>

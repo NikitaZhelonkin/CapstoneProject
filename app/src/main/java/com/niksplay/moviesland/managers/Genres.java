@@ -62,6 +62,14 @@ public class Genres {
         return findGenre(id, sTVGenres);
     }
 
+    public static List<Genre> getMoviesGenres(){
+        return sMovieGenres;
+    }
+
+    public static List<Genre> getTVGenres(){
+        return sTVGenres;
+    }
+
     private static Genre findGenre(long id, List<Genre> genres) {
         if (genres == null) {
             return null;

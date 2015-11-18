@@ -70,7 +70,7 @@ public class TVsFragment extends NavigationFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_catalog:
-                getActivity().startActivity(new Intent(getActivity(), CatalogActivity.class));
+                getActivity().startActivity(CatalogActivity.createIntent(getActivity(), CatalogActivity.CatalogType.TV));
                 return true;
             case R.id.action_search:
                 getActivity().startActivity(new Intent(getActivity(), SearchActivity.class));
