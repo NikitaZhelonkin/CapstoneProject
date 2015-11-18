@@ -5,7 +5,6 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.google.gson.annotations.SerializedName;
-import com.niksplay.moviesland.network.MoviesService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,7 +15,7 @@ import java.util.Locale;
 /**
  * Created by nikita on 15.11.15.
  */
-public class Movie implements IMovie, Parcelable {
+public class Movie implements IMedia, Parcelable {
 
     @SerializedName("backdrop_path")
     public String backdropPath;

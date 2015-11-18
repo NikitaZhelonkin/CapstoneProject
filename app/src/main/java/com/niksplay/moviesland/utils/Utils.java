@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.niksplay.moviesland.managers.Genres;
 import com.niksplay.moviesland.model.Genre;
-import com.niksplay.moviesland.model.IMovie;
+import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.model.Movie;
 import com.niksplay.moviesland.model.Person;
 
@@ -33,7 +33,7 @@ public class Utils {
         }
     }
 
-    public static String formatGenres(IMovie iMovie){
+    public static String formatGenres(IMedia iMovie){
         StringBuilder builder = new StringBuilder();
         for(int i:iMovie.getGenreIds()){
             Genre genre = Genres.getGenre(i);

@@ -23,7 +23,9 @@ import butterknife.ButterKnife;
 /**
  * Created by nikita on 17.11.15.
  */
-public abstract  class PagingListFragment<T> extends Fragment implements LoaderManager.LoaderCallbacks<PagedResponse<T>> {
+public abstract class PagingListFragment<T> extends Fragment implements LoaderManager.LoaderCallbacks<PagedResponse<T>> {
+
+    private static final String EXTRA_PAGE = "page";
 
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -40,14 +42,10 @@ public abstract  class PagingListFragment<T> extends Fragment implements LoaderM
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getLoaderManager().initLoader(0, null, this);
+        mPage = 0;
+        getLoaderManager().restartLoader(0, bundleForPage(mPage + 1), this);
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mPage = 0;
-    }
 
     @Nullable
     @Override
@@ -66,7 +64,7 @@ public abstract  class PagingListFragment<T> extends Fragment implements LoaderM
             @Override
             public void onLoadMore() {
                 if (!mLoading && mPage + 1 <= mTotalPages) {
-                    getLoaderManager().restartLoader(0, null, PagingListFragment.this);
+                    getLoaderManager().restartLoader(0, bundleForPage(mPage + 1), PagingListFragment.this);
                 }
             }
         });
@@ -74,17 +72,17 @@ public abstract  class PagingListFragment<T> extends Fragment implements LoaderM
     }
 
     @Override
-    public final Loader<PagedResponse<T>> onCreateLoader(int id, Bundle args) {
+    public final Loader<PagedResponse<T>> onCreateLoader(int id, final Bundle args) {
         return new AsyncTaskLoader<PagedResponse<T>>(getActivity()) {
             @Override
             public PagedResponse<T> loadInBackground() {
-                return PagingListFragment.this.loadInBackground(mPage + 1);
+                return PagingListFragment.this.loadInBackground(args.getInt(EXTRA_PAGE));
             }
 
             @Override
             protected void onStartLoading() {
                 super.onStartLoading();
-                mLoading =true;
+                mLoading = true;
                 forceLoad();
             }
         };
@@ -105,5 +103,11 @@ public abstract  class PagingListFragment<T> extends Fragment implements LoaderM
     @Override
     public void onLoaderReset(Loader<PagedResponse<T>> loader) {
 
+    }
+
+    private Bundle bundleForPage(int page) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(EXTRA_PAGE, page);
+        return bundle;
     }
 }

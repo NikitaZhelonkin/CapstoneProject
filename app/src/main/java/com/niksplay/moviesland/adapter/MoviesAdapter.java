@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.niksplay.moviesland.R;
-import com.niksplay.moviesland.model.IMovie;
+import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.utils.ImageUrls;
 import com.niksplay.moviesland.utils.Utils;
 import com.squareup.picasso.Picasso;
@@ -24,9 +24,9 @@ import butterknife.ButterKnife;
  */
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
 
-    private List<IMovie> mData;
+    private List<IMedia> mData;
 
-    public void addAll(List<? extends IMovie> data){
+    public void addAll(List<? extends IMedia> data){
         if(mData == null){
             mData = new ArrayList<>();
         }
@@ -34,7 +34,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
-    public void setData(List<? extends IMovie> data) {
+    public void setData(List<? extends IMedia> data) {
         mData = new ArrayList<>(data);
         notifyDataSetChanged();
     }
@@ -46,7 +46,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        IMovie movie = mData.get(position);
+        IMedia movie = mData.get(position);
         int year = Utils.getYear(movie.getReleaseDate());
         holder.mTitleView.setText(movie.getTitle());
         holder.mDescriptionView.setText(movie.getOverview());

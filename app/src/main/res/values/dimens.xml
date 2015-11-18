@@ -13,4 +13,6 @@
     <dimen name="list_item_person_image_width">92dp</dimen>
     <dimen name="list_item_person_image_height">138dp</dimen>
 
+    <dimen name="list_item_margin">4dp</dimen>
+
 </resources>

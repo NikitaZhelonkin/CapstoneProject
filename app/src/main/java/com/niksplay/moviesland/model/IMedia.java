@@ -3,7 +3,7 @@ package com.niksplay.moviesland.model;
 /**
  * Created by nikita on 16.11.15.
  */
-public interface IMovie {
+public interface IMedia {
 
     String getBackdropPath();
 
