@@ -22,12 +22,18 @@ import butterknife.ButterKnife;
 /**
  * Created by nikita on 16.11.15.
  */
-public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
+public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> {
+
+    public interface OnItemSelectedListener {
+        void onItemSelected(IMedia media);
+    }
 
     private List<IMedia> mData;
 
-    public void addAll(List<? extends IMedia> data){
-        if(mData == null){
+    private OnItemSelectedListener mOnItemSelectedListener;
+
+    public void addAll(List<? extends IMedia> data) {
+        if (mData == null) {
             mData = new ArrayList<>();
         }
         mData.addAll(data);
@@ -39,6 +45,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
+    public void setOnItemSelectedListener(OnItemSelectedListener l) {
+        mOnItemSelectedListener = l;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_movie, parent, false));
@@ -46,14 +56,22 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        IMedia movie = mData.get(position);
-        int year = Utils.getYear(movie.getReleaseDate());
-        holder.mTitleView.setText(movie.getTitle());
-        holder.mDescriptionView.setText(movie.getOverview());
-        holder.mRateView.setText(String.valueOf(movie.getVoteAverage()));
+        final IMedia media = mData.get(position);
+        int year = Utils.getYear(media.getReleaseDate());
+        holder.mTitleView.setText(media.getTitle());
+        holder.mDescriptionView.setText(media.getOverview());
+        holder.mRateView.setText(String.valueOf(media.getVoteAverage()));
         holder.mReleaseDate.setText(year == 0 ? "" : String.valueOf(year));
-        holder.mGenresView.setText(Utils.formatGenres(movie));
-        Picasso.with(holder.mImageView.getContext()).load(ImageUrls.getPosterUrl(movie.getPosterPath())).into(holder.mImageView);
+        holder.mGenresView.setText(Utils.formatGenres(media));
+        Picasso.with(holder.mImageView.getContext()).load(ImageUrls.getPosterUrl(media.getPosterPath())).into(holder.mImageView);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mOnItemSelectedListener != null) {
+                    mOnItemSelectedListener.onItemSelected(media);
+                }
+            }
+        });
     }
 
     @Override

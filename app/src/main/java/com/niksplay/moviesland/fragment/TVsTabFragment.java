@@ -5,8 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
 import android.view.View;
 
-import com.niksplay.moviesland.adapter.MoviesAdapter;
+import com.niksplay.moviesland.activity.MovieDetailActivity;
+import com.niksplay.moviesland.adapter.MediaAdapter;
 import com.niksplay.moviesland.app.App;
+import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.model.TV;
 import com.niksplay.moviesland.model.response.PagedResponse;
 
@@ -17,7 +19,7 @@ import retrofit.Response;
 /**
  * Created by nikita on 16.11.15.
  */
-public class TVsTabFragment extends PagingListFragment<TV> {
+public class TVsTabFragment extends PagingListFragment<TV> implements MediaAdapter.OnItemSelectedListener {
 
     private static final String EXTRA_TAB = "tab";
 
@@ -26,7 +28,7 @@ public class TVsTabFragment extends PagingListFragment<TV> {
     public static final int TAB_ON_THE_AIR = 2;
     public static final int TAB_AIRING_TODAY = 3;
 
-    private MoviesAdapter mAdapter;
+    private MediaAdapter mAdapter;
 
     private int mTab;
 
@@ -48,7 +50,13 @@ public class TVsTabFragment extends PagingListFragment<TV> {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecyclerView.setAdapter(mAdapter = new MoviesAdapter());
+        mRecyclerView.setAdapter(mAdapter = new MediaAdapter());
+        mAdapter.setOnItemSelectedListener(this);
+    }
+
+    @Override
+    public void onItemSelected(IMedia media) {
+        startActivity(MovieDetailActivity.createIntent(getActivity(), media));
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.niksplay.moviesland.model;
 
+import android.os.Parcelable;
+
 /**
  * Created by nikita on 16.11.15.
  */
-public interface IMedia {
+public interface IMedia extends Parcelable {
 
     String getBackdropPath();
 

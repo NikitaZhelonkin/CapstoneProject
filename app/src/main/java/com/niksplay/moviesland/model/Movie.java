@@ -15,7 +15,7 @@ import java.util.Locale;
 /**
  * Created by nikita on 15.11.15.
  */
-public class Movie implements IMedia, Parcelable {
+public class Movie implements IMedia {
 
     @SerializedName("backdrop_path")
     public String backdropPath;
@@ -87,21 +87,6 @@ public class Movie implements IMedia, Parcelable {
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    public int getReleaseYear() {
-        try {
-            if (TextUtils.isEmpty(releaseDate)) {
-                return 0;
-            }
-            Date date = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).parse(releaseDate);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-            return calendar.get(Calendar.YEAR);
-        } catch (ParseException e) {
-            return 0;
-        }
-
     }
 
 

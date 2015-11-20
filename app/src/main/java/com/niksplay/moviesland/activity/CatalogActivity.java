@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,7 +18,7 @@ import android.widget.Spinner;
 
 import com.niksplay.moviesland.Constants;
 import com.niksplay.moviesland.R;
-import com.niksplay.moviesland.adapter.MoviesAdapter;
+import com.niksplay.moviesland.adapter.MediaAdapter;
 import com.niksplay.moviesland.adapter.SpinnerSubtitleAdapter;
 import com.niksplay.moviesland.app.App;
 import com.niksplay.moviesland.managers.Genres;
@@ -79,7 +78,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     private ArrayAdapter<String> mGenresAdapter;
     private ArrayAdapter<String> mYearAdapter;
-    private MoviesAdapter mMediaAdapter;
+    private MediaAdapter mMediaAdapter;
 
     private CatalogType mType = CatalogType.MOVIE;
 
@@ -148,7 +147,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.setAdapter(mMediaAdapter = new MoviesAdapter());
+        mRecyclerView.setAdapter(mMediaAdapter = new MediaAdapter());
         mRecyclerView.addOnScrollListener(new EndlessRecyclerScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore() {
@@ -166,7 +165,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         return new AsyncTaskLoader<PagedResponse<? extends IMedia>>(this) {
             @Override
             public PagedResponse<? extends IMedia> loadInBackground() {
-                Log.e("RESTART", "loadinBackground");
                 HashMap<String, String> params = new HashMap<>();
                 params.put(Constants.PARAM_YEAR, Constants.PARAM_YEAR);
                 params.put(Constants.PARAM_WITH_GENRES, args.getString(Constants.PARAM_WITH_GENRES));
@@ -221,7 +219,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         Bundle bundle = new Bundle();
         bundle.putString(Constants.PARAM_SORT_BY, SORT_VALUES[mSortSpinner.getSelectedItemPosition()]);
         if (mGenreSpinner.getSelectedItemPosition() != 0) {
-            Genre genre = getGenresList().get(mGenreSpinner.getSelectedItemPosition() + 1);
+            Genre genre = getGenresList().get(mGenreSpinner.getSelectedItemPosition()-1);
             bundle.putString(Constants.PARAM_WITH_GENRES, String.valueOf(genre.id));
         }
         if (mYearSpinner.getSelectedItemPosition() != 0) {

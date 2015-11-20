@@ -21,6 +21,7 @@ import com.niksplay.moviesland.fragment.MoviesFragment;
 import com.niksplay.moviesland.fragment.PersonsFragment;
 import com.niksplay.moviesland.fragment.TVsFragment;
 import com.niksplay.moviesland.fragment.WatchlistFragment;
+import com.niksplay.moviesland.managers.Genres;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,6 +36,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Genres.loadGenres();
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 

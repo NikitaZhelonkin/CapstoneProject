@@ -33,8 +33,6 @@ public class App extends Application {
         sInstance = this;
 
         initMoviesApiClient();
-
-        Genres.loadGenres();
     }
 
     private void initMoviesApiClient() {

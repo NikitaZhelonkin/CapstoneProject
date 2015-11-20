@@ -2,35 +2,24 @@ package com.niksplay.moviesland.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
-import com.niksplay.moviesland.R;
-import com.niksplay.moviesland.adapter.MoviesAdapter;
+import com.niksplay.moviesland.activity.MovieDetailActivity;
+import com.niksplay.moviesland.adapter.MediaAdapter;
 import com.niksplay.moviesland.app.App;
+import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.model.Movie;
 import com.niksplay.moviesland.model.response.PagedResponse;
-import com.niksplay.moviesland.widget.EndlessRecyclerScrollListener;
 
 import java.io.IOException;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import retrofit.Response;
 
 /**
  * Created by nikita on 16.11.15.
  */
-public class MovieTabFragment extends PagingListFragment<Movie> {
+public class MovieTabFragment extends PagingListFragment<Movie> implements MediaAdapter.OnItemSelectedListener {
 
     private static final String EXTRA_TAB= "tab";
 
@@ -39,7 +28,7 @@ public class MovieTabFragment extends PagingListFragment<Movie> {
     public static final int TAB_UPCOMING = 2;
     public static final int TAB_NOW_PLAYING = 3;
 
-    private MoviesAdapter mAdapter;
+    private MediaAdapter mAdapter;
 
     private int mTab;
 
@@ -65,7 +54,13 @@ public class MovieTabFragment extends PagingListFragment<Movie> {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecyclerView.setAdapter(mAdapter = new MoviesAdapter());
+        mRecyclerView.setAdapter(mAdapter = new MediaAdapter());
+        mAdapter.setOnItemSelectedListener(this);
+    }
+
+    @Override
+    public void onItemSelected(IMedia media) {
+        startActivity(MovieDetailActivity.createIntent(getActivity(), media));
     }
 
     @Override
