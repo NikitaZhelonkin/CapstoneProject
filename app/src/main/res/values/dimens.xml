@@ -17,4 +17,6 @@
 
     <dimen name="list_item_backdrop_image_height">100dp</dimen>
 
+    <dimen name="detail_backdrop_height">180dp</dimen>
+
 </resources>

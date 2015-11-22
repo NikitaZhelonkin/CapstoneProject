@@ -1,5 +1,7 @@
 package com.niksplay.moviesland.adapter.item;
 
+import android.support.v7.widget.RecyclerView;
+
 import com.niksplay.moviesland.adapter.MediaDetailsAdapter;
 import com.niksplay.moviesland.model.IMedia;
 
@@ -11,4 +13,5 @@ public class MediaDetailHeaderItem extends SimpleItem<IMedia> {
     public MediaDetailHeaderItem(IMedia media) {
         super(media, MediaDetailsAdapter.TYPE_HEADER);
     }
+
 }

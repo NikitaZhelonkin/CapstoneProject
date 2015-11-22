@@ -18,4 +18,8 @@ public class ImageUrls {
     public static String getMediaImageUrl(String path){
         return MoviesService.IMAGES_URL + "w300" + path;
     }
+
+    public static String getBackdropUrl(String path){
+        return MoviesService.IMAGES_URL + "w600" + path;
+    }
 }

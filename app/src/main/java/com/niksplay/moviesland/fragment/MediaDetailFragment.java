@@ -7,7 +7,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +30,9 @@ import com.niksplay.moviesland.utils.ArrayUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by nikita on 21.11.15.
  */
@@ -42,6 +45,9 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
     private MediaDetailInfo mMediaDetailInfo;
 
     private MediaDetailsAdapter mAdapter;
+
+    @Bind(R.id.recycler_view)
+    RecyclerView mRecyclerView;
 
 
     public static MediaDetailFragment create(IMedia movie) {
@@ -71,11 +77,15 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(mAdapter = new MediaDetailsAdapter());
+        ButterKnife.bind(this, view);
+
+        getActivity().setTitle(mMedia.getTitle());
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAdapter(mAdapter = new MediaDetailsAdapter());
+
         invalidate();
     }
 

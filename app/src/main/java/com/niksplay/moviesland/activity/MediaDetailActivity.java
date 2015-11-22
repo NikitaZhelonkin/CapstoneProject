@@ -7,11 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.niksplay.moviesland.R;
 import com.niksplay.moviesland.fragment.MediaDetailFragment;
 import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.model.Movie;
+import com.niksplay.moviesland.utils.ImageUrls;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by nikita on 19.11.15.
@@ -41,11 +44,14 @@ public class MediaDetailActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        IMedia media =  getIntent().getExtras().getParcelable(EXTRA_MEDIA);
+
         if (savedInstanceState == null) {
-            IMedia media =  getIntent().getExtras().getParcelable(EXTRA_MEDIA);
             MediaDetailFragment fragment = MediaDetailFragment.create(media);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
         }
+        ImageView backdropView = (ImageView)findViewById(R.id.backdrop_view);
+        Picasso.with(this).load(ImageUrls.getBackdropUrl(media.getBackdropPath())).into(backdropView);
     }
 
     @Override

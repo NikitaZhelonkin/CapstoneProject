@@ -1,9 +1,9 @@
 package com.niksplay.moviesland.adapter.holder;
 
 import android.content.Context;
-import android.text.TextUtils;
-import android.util.Log;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,17 +11,10 @@ import android.widget.TextView;
 import com.niksplay.moviesland.R;
 import com.niksplay.moviesland.adapter.item.IListItem;
 import com.niksplay.moviesland.adapter.item.MediaDetailHeaderItem;
-import com.niksplay.moviesland.fragment.MediaDetailFragment;
 import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.utils.ImageUrls;
 import com.niksplay.moviesland.utils.Utils;
 import com.squareup.picasso.Picasso;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,7 +22,7 @@ import butterknife.ButterKnife;
 /**
  * Created by nikita on 21.11.15.
  */
-public class MediaDetailHeaderHolder extends AbsViewHolder {
+public class MediaDetailHeaderHolder extends AbsViewHolder{
 
     @Bind(R.id.movie_title)
     TextView movieTitle;
@@ -47,7 +40,6 @@ public class MediaDetailHeaderHolder extends AbsViewHolder {
     Button favoriteButton;
     @Bind(R.id.watchlist_btn)
     Button watchlistButton;
-
 
     Context mContext;
 
@@ -83,6 +75,7 @@ public class MediaDetailHeaderHolder extends AbsViewHolder {
 
                 }
             });
+
         }
     }
 }
