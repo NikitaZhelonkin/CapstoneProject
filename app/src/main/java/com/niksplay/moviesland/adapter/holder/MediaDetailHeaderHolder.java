@@ -2,6 +2,7 @@ package com.niksplay.moviesland.adapter.holder;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -68,7 +69,7 @@ public class MediaDetailHeaderHolder extends AbsViewHolder {
             descriptionView.setText(media.getOverview());
             Picasso.with(mContext).load(ImageUrls.getPosterUrl(media.getPosterPath())).into(movieImage);
 
-            favoriteButton.setText("Fav");
+            favoriteButton.setText("Favorite");
             favoriteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

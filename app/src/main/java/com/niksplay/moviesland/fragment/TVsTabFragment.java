@@ -3,9 +3,10 @@ package com.niksplay.moviesland.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.View;
 
-import com.niksplay.moviesland.activity.MovieDetailActivity;
+import com.niksplay.moviesland.activity.MediaDetailActivity;
 import com.niksplay.moviesland.adapter.MediaAdapter;
 import com.niksplay.moviesland.app.App;
 import com.niksplay.moviesland.model.IMedia;
@@ -56,7 +57,7 @@ public class TVsTabFragment extends PagingListFragment<TV> implements MediaAdapt
 
     @Override
     public void onItemSelected(IMedia media) {
-        startActivity(MovieDetailActivity.createIntent(getActivity(), media));
+        startActivity(MediaDetailActivity.createIntent(getActivity(), media));
     }
 
     @Override

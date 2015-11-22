@@ -17,6 +17,9 @@
     <string name="title_search">Search</string>
     <string name="title_detail">Detail</string>
 
+    <string name="label_persons">Actors</string>
+    <string name="label_similar">Similar</string>
+
     <string name="tab_popular">Popular</string>
     <string name="tab_top_rated">Top rated</string>
     <string name="tab_upcoming">Upcoming</string>

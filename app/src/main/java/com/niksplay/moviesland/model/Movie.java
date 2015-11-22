@@ -53,7 +53,7 @@ public class Movie implements IMedia {
 
     }
 
-    private Movie(Parcel parcel) {
+    protected Movie(Parcel parcel) {
         backdropPath = parcel.readString();
         genreIds = parcel.createIntArray();
         id = parcel.readLong();
@@ -196,5 +196,10 @@ public class Movie implements IMedia {
 
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
+    }
+
+    @Override
+    public Type getType() {
+        return Type.MOVIE;
     }
 }

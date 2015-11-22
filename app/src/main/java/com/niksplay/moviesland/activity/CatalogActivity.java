@@ -44,20 +44,6 @@ import retrofit.Response;
  */
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<PagedResponse<? extends IMedia>>{
 
-    public enum CatalogType {
-        MOVIE("movie"), TV("tv");
-
-        private String name;
-
-        CatalogType(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-    }
 
     private static final String EXTRA_TYPE = "type";
     private  static final  String[] SORT_NAMES = {"By Popularity", "By Release date", "By Revenue", "By Vote average", "By Vote count"};
@@ -80,13 +66,13 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     private ArrayAdapter<String> mYearAdapter;
     private MediaAdapter mMediaAdapter;
 
-    private CatalogType mType = CatalogType.MOVIE;
+    private IMedia.Type mType = IMedia.Type.MOVIE;
 
     private int mPage;
     private int mTotalPages;
     private boolean mLoading = false;
 
-    public static Intent createIntent(Context context, CatalogType type){
+    public static Intent createIntent(Context context, IMedia.Type type){
         Intent i = new Intent(context, CatalogActivity.class);
         i.putExtra(EXTRA_TYPE, type);
         return i;
@@ -97,7 +83,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
-        mType = (CatalogType) getIntent().getSerializableExtra(EXTRA_TYPE);
+        mType = (IMedia.Type) getIntent().getSerializableExtra(EXTRA_TYPE);
 
         ButterKnife.bind(this);
 
@@ -114,11 +100,11 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         adapter.addItem(getString(R.string.title_movies));
         adapter.addItem(getString(R.string.title_tvs));
         mToolbarSpinner.setAdapter(adapter);
-        mToolbarSpinner.setSelection(mType != CatalogType.TV ? 0 : 1);
+        mToolbarSpinner.setSelection(mType != IMedia.Type.TV ? 0 : 1);
         mToolbarSpinner.setOnItemSelectedListener(new SimpleItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                mType = i == 0 ? CatalogType.MOVIE : CatalogType.TV;
+                mType = i == 0 ? IMedia.Type.MOVIE : IMedia.Type.TV;
                 mGenresAdapter.clear();
                 mGenresAdapter.addAll(getGenresStringList());
                 mGenresAdapter.notifyDataSetChanged();
@@ -219,7 +205,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         Bundle bundle = new Bundle();
         bundle.putString(Constants.PARAM_SORT_BY, SORT_VALUES[mSortSpinner.getSelectedItemPosition()]);
         if (mGenreSpinner.getSelectedItemPosition() != 0) {
-            Genre genre = getGenresList().get(mGenreSpinner.getSelectedItemPosition()-1);
+            Genre genre = Genres.getGenres(mType).get(mGenreSpinner.getSelectedItemPosition() - 1);
             bundle.putString(Constants.PARAM_WITH_GENRES, String.valueOf(genre.id));
         }
         if (mYearSpinner.getSelectedItemPosition() != 0) {
@@ -229,7 +215,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     }
 
     private List<String> getGenresStringList() {
-        List<Genre> genres = getGenresList();
+        List<Genre> genres = Genres.getGenres(mType);
         List<String> strings = new ArrayList<>();
         strings.add(getString(R.string.spinner_genres_default));
         if (genres == null) {
@@ -241,13 +227,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         return strings;
     }
 
-    private List<Genre> getGenresList() {
-        if (mType == CatalogType.MOVIE) {
-            return Genres.getMoviesGenres();
-        } else {
-            return Genres.getTVGenres();
-        }
-    }
 
     private String[] getYears(int min) {
         int max = Calendar.getInstance().get(Calendar.YEAR);

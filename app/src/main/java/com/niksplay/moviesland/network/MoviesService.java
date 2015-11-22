@@ -43,14 +43,17 @@ public interface MoviesService {
     @GET("movie/{id}")
     Call<Movie> getMovie(@Path("id") long id);
 
-    @GET("movie/{id}/images")
-    Call<ImagesResponse> getMovieImages(@Path("id") long id);
+    @GET("{type}/{id}/images")
+    Call<ImagesResponse> getImages(@Path("type") String type, @Path("id") long id);
+
+    @GET("{type}/{id}/credits")
+    Call<CreditsResponse> getCredits(@Path("type") String type, @Path("id") long id);
+
+    @GET("{type}/{id}/reviews")
+    Call<PagedResponse<Review>> getReviews(@Path("type") String type, @Path("id") long id);
 
     @GET("movie/{id}/similar")
     Call<PagedResponse<Movie>> getMovieSimilar(@Path("id") long id);
-
-    @GET("movie/{id}/reviews")
-    Call<PagedResponse<Review>> getMovieReviews(@Path("id") long id);
 
     @GET("movie/now_playing")
     Call<PagedResponse<Movie>> moviesNowPlaying(@Query("page") int page);
@@ -66,9 +69,6 @@ public interface MoviesService {
 
     @GET("tv/{id}")
     Call<TV> getTV(@Path("id") long id);
-
-    @GET("tv/{id}/images")
-    Call<ImagesResponse> getTVImages(@Path("id") long id);
 
     @GET("tv/{id}/similar")
     Call<PagedResponse<TV>> getTVSimilar(@Path("id") long id);

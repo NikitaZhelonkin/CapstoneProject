@@ -15,4 +15,6 @@
 
     <dimen name="list_item_margin">4dp</dimen>
 
+    <dimen name="list_item_backdrop_image_height">100dp</dimen>
+
 </resources>

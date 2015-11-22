@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.niksplay.moviesland.app.App;
 import com.niksplay.moviesland.model.Genre;
+import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.model.response.GenresResponse;
 
 import java.util.List;
@@ -60,6 +61,14 @@ public class Genres {
             return genre;
         }
         return findGenre(id, sTVGenres);
+    }
+
+    public static List<Genre> getGenres(IMedia.Type type) {
+        if (type == IMedia.Type.MOVIE) {
+            return Genres.getMoviesGenres();
+        } else {
+            return Genres.getTVGenres();
+        }
     }
 
     public static List<Genre> getMoviesGenres(){

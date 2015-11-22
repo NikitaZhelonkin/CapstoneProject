@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.niksplay.moviesland.R;
@@ -15,12 +16,13 @@ import com.niksplay.moviesland.model.Movie;
 /**
  * Created by nikita on 19.11.15.
  */
-public class MovieDetailActivity extends AppCompatActivity {
+public class MediaDetailActivity extends AppCompatActivity {
 
     private static final String EXTRA_MEDIA = "extra_media";
 
     public static Intent createIntent(Context context, IMedia media){
-        Intent i = new Intent(context, MovieDetailActivity.class);
+
+        Intent i = new Intent(context, MediaDetailActivity.class);
         i.putExtra(EXTRA_MEDIA, media);
         return i;
     }
@@ -40,7 +42,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
 
         if (savedInstanceState == null) {
-            MediaDetailFragment fragment = MediaDetailFragment.create((Movie) getIntent().getExtras().getParcelable(EXTRA_MEDIA));
+            IMedia media =  getIntent().getExtras().getParcelable(EXTRA_MEDIA);
+            MediaDetailFragment fragment = MediaDetailFragment.create(media);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
         }
     }

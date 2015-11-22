@@ -14,4 +14,8 @@ public class ImageUrls {
     public static String getPersonPosterUrl(String path){
         return MoviesService.IMAGES_URL + "w185" + path;
     }
+
+    public static String getMediaImageUrl(String path){
+        return MoviesService.IMAGES_URL + "w300" + path;
+    }
 }

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import com.niksplay.moviesland.R;
 import com.niksplay.moviesland.activity.CatalogActivity;
 import com.niksplay.moviesland.activity.SearchActivity;
+import com.niksplay.moviesland.model.IMedia;
 
 import java.util.ArrayList;
 
@@ -70,7 +71,7 @@ public class TVsFragment extends NavigationFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_catalog:
-                getActivity().startActivity(CatalogActivity.createIntent(getActivity(), CatalogActivity.CatalogType.TV));
+                getActivity().startActivity(CatalogActivity.createIntent(getActivity(), IMedia.Type.TV));
                 return true;
             case R.id.action_search:
                 getActivity().startActivity(new Intent(getActivity(), SearchActivity.class));

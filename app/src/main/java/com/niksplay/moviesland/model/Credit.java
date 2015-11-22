@@ -14,4 +14,8 @@ public class Credit {
     public String originalTitle;
     @SerializedName("poster_path")
     public String posterPath;
+    @SerializedName("profile_path")
+    public String profilePath;
+
+    public String name;
 }

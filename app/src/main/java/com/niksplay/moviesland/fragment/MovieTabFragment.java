@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
 import android.view.View;
 
-import com.niksplay.moviesland.activity.MovieDetailActivity;
+import com.niksplay.moviesland.activity.MediaDetailActivity;
 import com.niksplay.moviesland.adapter.MediaAdapter;
 import com.niksplay.moviesland.app.App;
 import com.niksplay.moviesland.model.IMedia;
@@ -60,7 +60,7 @@ public class MovieTabFragment extends PagingListFragment<Movie> implements Media
 
     @Override
     public void onItemSelected(IMedia media) {
-        startActivity(MovieDetailActivity.createIntent(getActivity(), media));
+        startActivity(MediaDetailActivity.createIntent(getActivity(), media));
     }
 
     @Override
