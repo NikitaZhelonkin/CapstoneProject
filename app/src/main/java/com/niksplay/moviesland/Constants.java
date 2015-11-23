@@ -10,4 +10,6 @@ public class Constants {
     public static final String PARAM_WITH_GENRES = "with_genres";
     public static final String PARAM_YEAR = "year";
     public static final String PARAM_PAGE = "page";
+
+    public static final String PARAM_COMBINED_CREDITS = "combined_credits";
 }

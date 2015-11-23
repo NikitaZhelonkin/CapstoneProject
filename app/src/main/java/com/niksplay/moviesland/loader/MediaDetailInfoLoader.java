@@ -2,6 +2,7 @@ package com.niksplay.moviesland.loader;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.Log;
 
 import com.niksplay.moviesland.app.App;
 import com.niksplay.moviesland.model.IMedia;
@@ -21,11 +22,11 @@ import retrofit.Response;
 /**
  * Created by nikita on 21.11.15.
  */
-public class MovieDetailInfoLoader extends AsyncTaskLoader<MediaDetailInfo> {
+public class MediaDetailInfoLoader extends AsyncTaskLoader<MediaDetailInfo> {
 
     private IMedia mMedia;
 
-    public MovieDetailInfoLoader(Context context, IMedia media) {
+    public MediaDetailInfoLoader(Context context, IMedia media) {
         super(context);
         mMedia = media;
     }
@@ -36,6 +37,26 @@ public class MovieDetailInfoLoader extends AsyncTaskLoader<MediaDetailInfo> {
         try {
             MediaDetailInfo detailInfo = new MediaDetailInfo();
 
+            if (mMedia.getType() == IMedia.Type.MOVIE) {
+                Response<Movie>  movieResponse = moviesService.getMovie(mMedia.getId()).execute();
+                if(movieResponse.isSuccess()){
+                    detailInfo.media = movieResponse.body();
+                }
+                Response<PagedResponse<Movie>> movieRelatedResponse = moviesService.getMovieSimilar(mMedia.getId()).execute();
+                if (movieRelatedResponse.isSuccess()) {
+                    detailInfo.relatedMedia = movieRelatedResponse.body().getResults();
+                }
+            } else {
+                Response<TV>  tvResponse = moviesService.getTV(mMedia.getId()).execute();
+                if(tvResponse.isSuccess()){
+                    detailInfo.media = tvResponse.body();
+                }
+                Response<PagedResponse<TV>> tvRelatedResponse = moviesService.getTVSimilar(mMedia.getId()).execute();
+                if (tvRelatedResponse.isSuccess()) {
+                    detailInfo.relatedMedia = tvRelatedResponse.body().getResults();
+                }
+            }
+
             Response<ImagesResponse> imagesResponse = moviesService.getImages(mMedia.getType().toString(), mMedia.getId()).execute();
             if (imagesResponse.isSuccess()) {
                 detailInfo.images = imagesResponse.body();
@@ -45,22 +66,13 @@ public class MovieDetailInfoLoader extends AsyncTaskLoader<MediaDetailInfo> {
                 detailInfo.credits = creditsResponse.body();
             }
 
-            if (mMedia.getType() == IMedia.Type.MOVIE) {
-                Response<PagedResponse<Movie>> movieResponse = moviesService.getMovieSimilar(mMedia.getId()).execute();
-                if (movieResponse.isSuccess()) {
-                    detailInfo.relatedMedia = movieResponse.body().getResults();
-                }
-            } else {
-                Response<PagedResponse<TV>> tvResponse = moviesService.getTVSimilar(mMedia.getId()).execute();
-                if (tvResponse.isSuccess()) {
-                    detailInfo.relatedMedia = tvResponse.body().getResults();
-                }
-            }
+
 
             Response<PagedResponse<Review>> reviewsResponse = moviesService.getReviews(mMedia.getType().toString(), mMedia.getId()).execute();
             if(reviewsResponse.isSuccess()){
                 detailInfo.reviews = reviewsResponse.body().getResults();
             }
+            Log.e(">>>",">>>MEDIA:" + detailInfo.media.getOverview());
             return detailInfo;
         } catch (IOException e) {
             e.printStackTrace();

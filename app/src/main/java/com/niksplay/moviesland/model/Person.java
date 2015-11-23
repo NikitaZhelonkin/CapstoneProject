@@ -23,6 +23,8 @@ public class Person implements Parcelable {
     @SerializedName("known_for")
     public List<Movie> knownFor;
 
+    public List<Credit> credits;
+
     public static final Creator<Person> CREATOR = new Creator<Person>() {
         @Override
         public Person createFromParcel(Parcel parcel) {
@@ -34,6 +36,10 @@ public class Person implements Parcelable {
             return new Person[i];
         }
     };
+
+    public Person(){
+
+    }
 
     public Person(Parcel parcel){
         id = parcel.readLong();

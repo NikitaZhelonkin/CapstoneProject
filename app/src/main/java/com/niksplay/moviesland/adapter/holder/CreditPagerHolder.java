@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.niksplay.moviesland.R;
 import com.niksplay.moviesland.adapter.item.IListItem;
-import com.niksplay.moviesland.adapter.item.ItemPagerPersons;
+import com.niksplay.moviesland.adapter.item.ItemPagerCredits;
 import com.niksplay.moviesland.model.Credit;
 import com.niksplay.moviesland.utils.ImageUrls;
 import com.squareup.picasso.Picasso;
@@ -21,7 +21,11 @@ import butterknife.ButterKnife;
 /**
  * Created by nikita on 21.11.15.
  */
-public class PersonsPagerHolder extends AbsViewHolder {
+public class CreditPagerHolder extends AbsViewHolder {
+
+    public interface OnItemSelectedListener{
+        void onItemSelected(Credit credit);
+    }
 
     private static final int COUNT = 4;
 
@@ -30,17 +34,20 @@ public class PersonsPagerHolder extends AbsViewHolder {
 
     private ViewPagerAdapter mAdapter;
 
-    public PersonsPagerHolder(View itemView) {
+    private OnItemSelectedListener mOnItemSelectedListener;
+
+    public CreditPagerHolder(View itemView, OnItemSelectedListener listener) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         mViewPager.setAdapter(mAdapter = new ViewPagerAdapter());
+        mOnItemSelectedListener = listener;
     }
 
 
     @Override
     public void bind(IListItem iListItem) {
-        if (iListItem instanceof ItemPagerPersons) {
-            List<Credit> creditList = ((ItemPagerPersons) iListItem).getItemData();
+        if (iListItem instanceof ItemPagerCredits) {
+            List<Credit> creditList = ((ItemPagerCredits) iListItem).getItemData();
             List<CreditBlock> blocks = new ArrayList<>();
             int blocksSize = creditList.size() / COUNT + (creditList.size() % COUNT == 0 ? 0 : 1);
             for (int i = 0; i < blocksSize; i += COUNT) {
@@ -83,10 +90,20 @@ public class PersonsPagerHolder extends AbsViewHolder {
             for (int i = 0; i < COUNT; i++) {
                 if (i < credits.length && credits[i] != null) {
                     imageViews[i].setVisibility(View.VISIBLE);
-                    Picasso.with(pager.getContext()).load(ImageUrls.getPersonPosterUrl(credits[i].profilePath)).into(imageViews[i]);
+
+                    Picasso.with(pager.getContext()).load(ImageUrls.getPersonPosterUrl(credits[i].getImageUrl())).into(imageViews[i]);
                 } else {
                     imageViews[i].setVisibility(View.INVISIBLE);
                 }
+                imageViews[i].setTag(credits[i]);
+                imageViews[i].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(mOnItemSelectedListener != null){
+                            mOnItemSelectedListener.onItemSelected((Credit)view.getTag());
+                        }
+                    }
+                });
             }
             return view;
         }

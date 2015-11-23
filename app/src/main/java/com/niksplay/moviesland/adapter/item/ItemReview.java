@@ -1,6 +1,11 @@
 package com.niksplay.moviesland.adapter.item;
 
-import com.niksplay.moviesland.adapter.MediaDetailsAdapter;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import com.niksplay.moviesland.R;
+import com.niksplay.moviesland.adapter.holder.AbsViewHolder;
+import com.niksplay.moviesland.adapter.holder.MediaReviewHolder;
 import com.niksplay.moviesland.model.Review;
 
 /**
@@ -10,5 +15,10 @@ public class ItemReview extends SimpleItem<Review> {
 
     public ItemReview(Review data) {
         super(data, ItemType.TYPE_REVIEW);
+    }
+
+    @Override
+    public AbsViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent) {
+        return new MediaReviewHolder(inflater.inflate(R.layout.list_item_review, parent, false));
     }
 }

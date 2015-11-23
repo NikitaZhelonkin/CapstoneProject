@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import com.niksplay.moviesland.managers.Genres;
 import com.niksplay.moviesland.model.Genre;
 import com.niksplay.moviesland.model.IMedia;
-import com.niksplay.moviesland.model.Movie;
 import com.niksplay.moviesland.model.Person;
 
 import java.text.ParseException;
@@ -33,18 +32,22 @@ public class Utils {
         }
     }
 
-    public static String formatGenres(IMedia iMovie){
+    public static String formatGenres(IMedia iMovie) {
+        int genres[] = iMovie.getGenreIds();
+        if (genres == null) {
+            return "";
+        }
         StringBuilder builder = new StringBuilder();
-        for(int i:iMovie.getGenreIds()){
+        for (int i : genres) {
             Genre genre = Genres.getGenre(i);
-            if(genre!=null){
+            if (genre != null) {
                 builder.append(genre.name).append(", ");
             }
         }
         if (builder.length() > 0) {
             builder.delete(builder.length() - 2, builder.length());
             return builder.toString();
-        }else{
+        } else {
             return "";
         }
     }

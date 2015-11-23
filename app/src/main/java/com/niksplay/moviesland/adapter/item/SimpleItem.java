@@ -3,7 +3,7 @@ package com.niksplay.moviesland.adapter.item;
 /**
  * Created by nikita on 21.11.15.
  */
-public class SimpleItem<T> implements IListItem {
+public abstract class SimpleItem<T> implements IListItem {
 
     private T itemData;
 

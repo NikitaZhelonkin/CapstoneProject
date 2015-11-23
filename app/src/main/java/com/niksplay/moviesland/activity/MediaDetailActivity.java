@@ -50,8 +50,7 @@ public class MediaDetailActivity extends AppCompatActivity {
             MediaDetailFragment fragment = MediaDetailFragment.create(media);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
         }
-        ImageView backdropView = (ImageView)findViewById(R.id.backdrop_view);
-        Picasso.with(this).load(ImageUrls.getBackdropUrl(media.getBackdropPath())).into(backdropView);
+
     }
 
     @Override

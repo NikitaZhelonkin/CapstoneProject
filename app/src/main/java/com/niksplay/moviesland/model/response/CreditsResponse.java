@@ -10,4 +10,5 @@ import java.util.List;
 public class CreditsResponse {
 
     public List<Credit> cast;
+    public List<Credit> crew;
 }

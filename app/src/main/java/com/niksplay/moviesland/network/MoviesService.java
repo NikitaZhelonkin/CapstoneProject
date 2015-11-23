@@ -2,6 +2,7 @@ package com.niksplay.moviesland.network;
 
 import com.niksplay.moviesland.model.Movie;
 import com.niksplay.moviesland.model.Person;
+import com.niksplay.moviesland.model.PersonDetailInfo;
 import com.niksplay.moviesland.model.Review;
 import com.niksplay.moviesland.model.TV;
 import com.niksplay.moviesland.model.response.CreditsResponse;
@@ -89,7 +90,7 @@ public interface MoviesService {
     Call<PagedResponse<Person>> personsPopular(@Query("page") int page);
 
     @GET("person/{id}")
-    Call<Person> getPerson(@Path("id") long id);
+    Call<PersonDetailInfo> getPerson(@Path("id") long id, @Query("append_to_response")String append);
 
     @GET("person/{id}/combined_credits")
     Call<CreditsResponse> personCredits(@Path("id") long id);

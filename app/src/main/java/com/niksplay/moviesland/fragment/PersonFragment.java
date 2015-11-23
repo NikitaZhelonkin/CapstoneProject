@@ -13,15 +13,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.niksplay.moviesland.Constants;
 import com.niksplay.moviesland.R;
-import com.niksplay.moviesland.adapter.PersonDetailAdapter;
+import com.niksplay.moviesland.activity.MediaDetailActivity;
+import com.niksplay.moviesland.adapter.RecyclerItemsAdapter;
+import com.niksplay.moviesland.adapter.holder.CreditPagerHolder;
 import com.niksplay.moviesland.adapter.item.IListItem;
 import com.niksplay.moviesland.adapter.item.ItemLabel;
 import com.niksplay.moviesland.adapter.item.ItemLoader;
-import com.niksplay.moviesland.adapter.item.ItemPagerMedias;
+import com.niksplay.moviesland.adapter.item.ItemPagerCredits;
 import com.niksplay.moviesland.adapter.item.ItemPersonHeader;
 import com.niksplay.moviesland.app.App;
+import com.niksplay.moviesland.model.Credit;
 import com.niksplay.moviesland.model.Person;
+import com.niksplay.moviesland.model.PersonDetailInfo;
 import com.niksplay.moviesland.utils.ArrayUtils;
 
 import java.io.IOException;
@@ -35,16 +40,17 @@ import retrofit.Response;
 /**
  * Created by nikita on 22.11.15.
  */
-public class PersonFragment extends Fragment implements LoaderManager.LoaderCallbacks<Person> {
+public class PersonFragment extends Fragment implements LoaderManager.LoaderCallbacks<PersonDetailInfo> {
 
     private static final String EXTRA_PERSON = "person";
 
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-    private PersonDetailAdapter mAdapter;
+    private RecyclerItemsAdapter mAdapter;
 
-    private Person mPerson;
+    private long mPersonId;
+    private PersonDetailInfo mPerson;
 
     private boolean mLoading;
 
@@ -65,7 +71,11 @@ public class PersonFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPerson = getArguments().getParcelable(EXTRA_PERSON);
+        Person person = getArguments().getParcelable(EXTRA_PERSON);
+        if (person != null) {
+            getActivity().setTitle(person.name);
+            mPersonId = person.id;
+        }
         mLoading = true;
     }
 
@@ -80,21 +90,19 @@ public class PersonFragment extends Fragment implements LoaderManager.LoaderCall
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        getActivity().setTitle(mPerson.name);
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mAdapter = new PersonDetailAdapter());
+        mRecyclerView.setAdapter(mAdapter = new RecyclerItemsAdapter());
 
         invalidate();
     }
 
     @Override
-    public Loader<Person> onCreateLoader(int id, Bundle args) {
-        return new AsyncTaskLoader<Person>(getActivity()) {
+    public Loader<PersonDetailInfo> onCreateLoader(int id, Bundle args) {
+        return new AsyncTaskLoader<PersonDetailInfo>(getActivity()) {
             @Override
-            public Person loadInBackground() {
+            public PersonDetailInfo loadInBackground() {
                 try {
-                    Response<Person> response = App.getInstance().getApiClient().getPerson(mPerson.id).execute();
+                    Response<PersonDetailInfo> response = App.getInstance().getApiClient().getPerson(mPersonId, Constants.PARAM_COMBINED_CREDITS).execute();
                     if (response.isSuccess()) {
                         return response.body();
                     }
@@ -113,12 +121,10 @@ public class PersonFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
-    public void onLoadFinished(Loader<Person> loader, Person data) {
+    public void onLoadFinished(Loader<PersonDetailInfo> loader, PersonDetailInfo data) {
         mLoading = false;
         if (data != null) {
-            mPerson.placeOfBirth = data.placeOfBirth;
-            mPerson.birthday = data.birthday;
-            mPerson.biography = data.biography;
+            mPerson = data;
         } else {
             Toast.makeText(getActivity(), R.string.error_getting_content, Toast.LENGTH_SHORT).show();
         }
@@ -126,7 +132,7 @@ public class PersonFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
-    public void onLoaderReset(Loader<Person> loader) {
+    public void onLoaderReset(Loader<PersonDetailInfo> loader) {
 
     }
 
@@ -136,12 +142,27 @@ public class PersonFragment extends Fragment implements LoaderManager.LoaderCall
             items.add(new ItemLoader());
         } else {
             items.add(new ItemPersonHeader(mPerson));
-            if(!ArrayUtils.isEmpty(mPerson.knownFor)){
-                items.add(new ItemLabel(getString(R.string.label_known_for)));
-                items.add(new ItemPagerMedias(mPerson.knownFor));
+            if (mPerson.combinedCredits != null) {
+                if (!ArrayUtils.isEmpty(mPerson.combinedCredits.cast)) {
+                    items.add(new ItemLabel(getString(R.string.label_cast)));
+                    items.add(new ItemPagerCredits(mPerson.combinedCredits.cast, mCreditItemSelectedListener));
+                }
+
+                if (!ArrayUtils.isEmpty(mPerson.combinedCredits.crew)) {
+                    items.add(new ItemLabel(getString(R.string.label_crew)));
+                    items.add(new ItemPagerCredits(mPerson.combinedCredits.crew, mCreditItemSelectedListener));
+                }
+
             }
         }
 
         mAdapter.setData(items);
     }
+
+    private CreditPagerHolder.OnItemSelectedListener mCreditItemSelectedListener = new CreditPagerHolder.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(Credit credit) {
+            startActivity(MediaDetailActivity.createIntent(getActivity(), credit.createMedia()));
+        }
+    };
 }

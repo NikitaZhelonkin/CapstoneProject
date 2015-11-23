@@ -23,6 +23,10 @@ import butterknife.ButterKnife;
  */
 public class MediasPagerHolder extends AbsViewHolder {
 
+    public interface  OnItemSelectedListener{
+        void onItemSelected(IMedia media);
+    }
+
     private static final int COUNT = 4;
 
     @Bind(R.id.view_pager)
@@ -30,9 +34,12 @@ public class MediasPagerHolder extends AbsViewHolder {
 
     private ViewPagerAdapter mAdapter;
 
-    public MediasPagerHolder(View itemView) {
+    private OnItemSelectedListener mOnItemSelectedListener;
+
+    public MediasPagerHolder(View itemView, OnItemSelectedListener listener) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        mOnItemSelectedListener = listener;
         mViewPager.setAdapter(mAdapter = new ViewPagerAdapter());
     }
 
@@ -87,6 +94,15 @@ public class MediasPagerHolder extends AbsViewHolder {
                 } else {
                     imageViews[i].setVisibility(View.INVISIBLE);
                 }
+                imageViews[i].setTag(medias[i]);
+                imageViews[i].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (mOnItemSelectedListener != null) {
+                            mOnItemSelectedListener.onItemSelected((IMedia) view.getTag());
+                        }
+                    }
+                });
             }
             return view;
         }

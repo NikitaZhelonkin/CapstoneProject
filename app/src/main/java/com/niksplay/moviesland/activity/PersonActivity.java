@@ -6,16 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import com.niksplay.moviesland.R;
-import com.niksplay.moviesland.fragment.MediaDetailFragment;
 import com.niksplay.moviesland.fragment.PersonFragment;
-import com.niksplay.moviesland.fragment.PersonsFragment;
-import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.model.Person;
-import com.niksplay.moviesland.utils.ImageUrls;
-import com.squareup.picasso.Picasso;
 
 /**
  * Created by nikita on 22.11.15.

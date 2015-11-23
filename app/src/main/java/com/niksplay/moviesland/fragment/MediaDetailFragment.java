@@ -10,21 +10,29 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.niksplay.moviesland.R;
-import com.niksplay.moviesland.adapter.MediaDetailsAdapter;
+import com.niksplay.moviesland.activity.MediaDetailActivity;
+import com.niksplay.moviesland.activity.PersonActivity;
+import com.niksplay.moviesland.adapter.RecyclerItemsAdapter;
+import com.niksplay.moviesland.adapter.holder.CreditPagerHolder;
+import com.niksplay.moviesland.adapter.holder.MediasPagerHolder;
 import com.niksplay.moviesland.adapter.item.IListItem;
 import com.niksplay.moviesland.adapter.item.ItemLabel;
 import com.niksplay.moviesland.adapter.item.ItemMediaImages;
-import com.niksplay.moviesland.adapter.item.ItemPagerPersons;
+import com.niksplay.moviesland.adapter.item.ItemPagerCredits;
 import com.niksplay.moviesland.adapter.item.ItemPagerMedias;
 import com.niksplay.moviesland.adapter.item.ItemReview;
 import com.niksplay.moviesland.adapter.item.MediaDetailHeaderItem;
-import com.niksplay.moviesland.loader.MovieDetailInfoLoader;
+import com.niksplay.moviesland.loader.MediaDetailInfoLoader;
+import com.niksplay.moviesland.model.Credit;
 import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.model.MediaDetailInfo;
 import com.niksplay.moviesland.model.Review;
 import com.niksplay.moviesland.utils.ArrayUtils;
+import com.niksplay.moviesland.utils.ImageUrls;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +51,7 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
 
     private MediaDetailInfo mMediaDetailInfo;
 
-    private MediaDetailsAdapter mAdapter;
+    private RecyclerItemsAdapter mAdapter;
 
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -83,18 +91,19 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
         getActivity().setTitle(mMedia.getTitle());
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mAdapter = new MediaDetailsAdapter());
+        mRecyclerView.setAdapter(mAdapter = new RecyclerItemsAdapter());
 
         invalidate();
     }
 
     @Override
     public Loader<MediaDetailInfo> onCreateLoader(int id, Bundle args) {
-        return new MovieDetailInfoLoader(getActivity(), mMedia);
+        return new MediaDetailInfoLoader(getActivity(), mMedia);
     }
 
     @Override
     public void onLoadFinished(Loader<MediaDetailInfo> loader, MediaDetailInfo data) {
+        mMedia = data != null ? data.media : mMedia;
         mMediaDetailInfo = data;
         invalidate();
     }
@@ -105,6 +114,7 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
     }
 
     private void invalidate() {
+        updateBackdropImage();
         List<IListItem> items = new ArrayList<>();
         items.add(new MediaDetailHeaderItem(mMedia));
 
@@ -115,12 +125,12 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
 
             if (mMediaDetailInfo.credits != null && !ArrayUtils.isEmpty(mMediaDetailInfo.credits.cast)) {
                 items.add(new ItemLabel(getString(R.string.label_persons)));
-                items.add(new ItemPagerPersons(mMediaDetailInfo.credits.cast));
+                items.add(new ItemPagerCredits(mMediaDetailInfo.credits.cast, mPersonSelectedListener));
             }
 
             if (!ArrayUtils.isEmpty(mMediaDetailInfo.relatedMedia)) {
                 items.add(new ItemLabel(getString(R.string.label_similar)));
-                items.add(new ItemPagerMedias(mMediaDetailInfo.relatedMedia));
+                items.add(new ItemPagerMedias(mMediaDetailInfo.relatedMedia, mRelatedItemSelectedListener));
             }
 
             if (!ArrayUtils.isEmpty(mMediaDetailInfo.reviews)) {
@@ -132,5 +142,24 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
 
         mAdapter.setData(items);
     }
+
+    private void updateBackdropImage(){
+        ImageView backdropView = (ImageView)getActivity().findViewById(R.id.backdrop_view);
+        Picasso.with(getActivity()).load(ImageUrls.getBackdropUrl(mMedia.getBackdropPath())).into(backdropView);
+    }
+
+    private MediasPagerHolder.OnItemSelectedListener mRelatedItemSelectedListener = new MediasPagerHolder.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(IMedia media) {
+            startActivity(MediaDetailActivity.createIntent(getActivity(), media));
+        }
+    };
+
+    private CreditPagerHolder.OnItemSelectedListener mPersonSelectedListener = new CreditPagerHolder.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(Credit credit) {
+            startActivity(PersonActivity.createIntent(getActivity(), credit.createPerson()));
+        }
+    };
 
 }

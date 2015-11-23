@@ -20,6 +20,7 @@ import com.niksplay.moviesland.Constants;
 import com.niksplay.moviesland.R;
 import com.niksplay.moviesland.adapter.MediaAdapter;
 import com.niksplay.moviesland.adapter.SpinnerSubtitleAdapter;
+import com.niksplay.moviesland.adapter.holder.MediasPagerHolder;
 import com.niksplay.moviesland.app.App;
 import com.niksplay.moviesland.managers.Genres;
 import com.niksplay.moviesland.model.Genre;
@@ -134,6 +135,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mMediaAdapter = new MediaAdapter());
+        mMediaAdapter.setOnItemSelectedListener(mOnItemSelectedListener);
         mRecyclerView.addOnScrollListener(new EndlessRecyclerScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore() {
@@ -240,6 +242,13 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         }
         return s;
     }
+
+    private MediaAdapter.OnItemSelectedListener mOnItemSelectedListener = new MediaAdapter.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(IMedia media) {
+            startActivity(MediaDetailActivity.createIntent(CatalogActivity.this, media));
+        }
+    };
 
     private class SimpleItemSelectedListener implements AdapterView.OnItemSelectedListener{
 

@@ -19,7 +19,8 @@
 
     <string name="label_persons">Actors</string>
     <string name="label_similar">Similar</string>
-    <string name="label_known_for">Known for</string>
+    <string name="label_cast">Cast</string>
+    <string name="label_crew">Crew</string>
 
     <string name="tab_popular">Popular</string>
     <string name="tab_top_rated">Top rated</string>
