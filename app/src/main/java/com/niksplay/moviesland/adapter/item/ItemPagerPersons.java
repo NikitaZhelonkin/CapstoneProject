@@ -13,10 +13,10 @@ import butterknife.Bind;
 /**
  * Created by nikita on 21.11.15.
  */
-public class ItemMediaPersons extends SimpleItem<List<Credit>> {
+public class ItemPagerPersons extends SimpleItem<List<Credit>> {
 
-    public ItemMediaPersons(List<Credit> data) {
-        super(data, MediaDetailsAdapter.TYPE_PERSONS);
+    public ItemPagerPersons(List<Credit> data) {
+        super(data, ItemType.TYPE_PERSONS);
     }
 
 

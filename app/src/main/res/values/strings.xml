@@ -19,6 +19,7 @@
 
     <string name="label_persons">Actors</string>
     <string name="label_similar">Similar</string>
+    <string name="label_known_for">Known for</string>
 
     <string name="tab_popular">Popular</string>
     <string name="tab_top_rated">Top rated</string>
@@ -29,6 +30,8 @@
 
     <string name="spinner_year_default">All years</string>
     <string name="spinner_genres_default">All genres</string>
+
+    <string name="error_getting_content">Error loading data</string>
 
     <string name="known_for">Known for: %s</string>
 </resources>

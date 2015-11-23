@@ -1,5 +1,6 @@
 package com.niksplay.moviesland.model;
 
+import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
@@ -47,5 +48,22 @@ public interface IMedia extends Parcelable {
     int getVoteCount();
 
     Type getType();
+
+    Creator<IMedia> CREATOR = new Creator<IMedia>() {
+        @Override
+        public IMedia createFromParcel(Parcel parcel) {
+            String type = parcel.readString();
+            if(Type.MOVIE.name.equals(type)){
+                return Movie.CREATOR.createFromParcel(parcel);
+            }else{
+                return TV.CREATOR.createFromParcel(parcel);
+            }
+        }
+
+        @Override
+        public IMedia[] newArray(int i) {
+            return new IMedia[i];
+        }
+    };
 
 }

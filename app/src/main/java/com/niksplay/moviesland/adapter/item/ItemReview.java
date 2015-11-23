@@ -9,6 +9,6 @@ import com.niksplay.moviesland.model.Review;
 public class ItemReview extends SimpleItem<Review> {
 
     public ItemReview(Review data) {
-        super(data, MediaDetailsAdapter.TYPE_REVIEW);
+        super(data, ItemType.TYPE_REVIEW);
     }
 }

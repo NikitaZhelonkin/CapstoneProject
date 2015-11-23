@@ -26,7 +26,13 @@ import butterknife.ButterKnife;
  */
 public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHolder> {
 
+    public interface OnItemSelectedListener{
+        void onItemSelected(Person person);
+    }
+
     private List<Person> mData;
+
+    private OnItemSelectedListener mItemSelectedListener;
 
     public void addAll(List<Person> data) {
         if (mData == null) {
@@ -36,6 +42,9 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHold
         notifyDataSetChanged();
     }
 
+    public void setItemSelectedListener(OnItemSelectedListener l){
+        mItemSelectedListener = l;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -45,12 +54,20 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Context context = holder.mNameView.getContext();
-        Person person = mData.get(position);
+        final Person person = mData.get(position);
         holder.mBiographyView.setText(person.biography);
         holder.mNameView.setText(person.name);
         String knownFor = Utils.formatKnownFor(person);
         holder.mKnowForView.setText(!TextUtils.isEmpty(knownFor) ? context.getString(R.string.known_for, knownFor) : "");
         Picasso.with(context).load(ImageUrls.getPersonPosterUrl(person.profilePath)).into(holder.mImageView);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mItemSelectedListener!=null){
+                    mItemSelectedListener.onItemSelected(person);
+                }
+            }
+        });
     }
 
     @Override

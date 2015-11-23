@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="8dp">
+
+
+    <ImageView
+        android:id="@+id/person_thumbnail"
+        android:layout_width="@dimen/list_item_image_width"
+        android:layout_height="@dimen/list_item_person_image_height"
+        android:background="#cccc"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/person_name"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/person_thumbnail"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:textColor="@android:color/black"
+        tools:text="Person Name" />
+
+    <TextView
+        android:id="@+id/person_date_of_birth"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/person_name"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/person_thumbnail"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:textColor="#6000"
+        tools:text="01/05/2015" />
+
+
+
+
+    <TextView
+        android:id="@+id/person_place_of_birth"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/person_date_of_birth"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@id/person_thumbnail"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:textColor="#6000"
+        tools:text="London, England" />
+
+
+
+    <TextView
+        android:id="@+id/person_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_below="@id/person_thumbnail"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        tools:text="Twenty-two years after the events of Jurassic Park, Isla Nublar now features a fully functioning dinosaur theme park, Jurassic World, as originally envisioned by John Hammond." />
+</RelativeLayout>

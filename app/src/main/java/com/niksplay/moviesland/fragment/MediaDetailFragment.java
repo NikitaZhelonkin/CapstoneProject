@@ -7,7 +7,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,8 @@ import com.niksplay.moviesland.adapter.MediaDetailsAdapter;
 import com.niksplay.moviesland.adapter.item.IListItem;
 import com.niksplay.moviesland.adapter.item.ItemLabel;
 import com.niksplay.moviesland.adapter.item.ItemMediaImages;
-import com.niksplay.moviesland.adapter.item.ItemMediaPersons;
-import com.niksplay.moviesland.adapter.item.ItemMediaSimilar;
+import com.niksplay.moviesland.adapter.item.ItemPagerPersons;
+import com.niksplay.moviesland.adapter.item.ItemPagerMedias;
 import com.niksplay.moviesland.adapter.item.ItemReview;
 import com.niksplay.moviesland.adapter.item.MediaDetailHeaderItem;
 import com.niksplay.moviesland.loader.MovieDetailInfoLoader;
@@ -73,7 +72,7 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_movie_detail, container, false);
+        return inflater.inflate(R.layout.fragment_media_detail, container, false);
     }
 
     @Override
@@ -116,12 +115,12 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
 
             if (mMediaDetailInfo.credits != null && !ArrayUtils.isEmpty(mMediaDetailInfo.credits.cast)) {
                 items.add(new ItemLabel(getString(R.string.label_persons)));
-                items.add(new ItemMediaPersons(mMediaDetailInfo.credits.cast));
+                items.add(new ItemPagerPersons(mMediaDetailInfo.credits.cast));
             }
 
             if (!ArrayUtils.isEmpty(mMediaDetailInfo.relatedMedia)) {
                 items.add(new ItemLabel(getString(R.string.label_similar)));
-                items.add(new ItemMediaSimilar(mMediaDetailInfo.relatedMedia));
+                items.add(new ItemPagerMedias(mMediaDetailInfo.relatedMedia));
             }
 
             if (!ArrayUtils.isEmpty(mMediaDetailInfo.reviews)) {

@@ -51,11 +51,11 @@ public class Utils {
 
     public static String formatKnownFor(Person person){
         StringBuilder builder = new StringBuilder();
-        if(person.knownFor==null){
+        if(person.knownFor == null){
             return "";
         }
-        for (Movie movie : person.knownFor) {
-            builder.append(movie.title).append(", ");
+        for (IMedia media : person.knownFor) {
+            builder.append(media.getTitle()).append(", ");
         }
         if (builder.length() > 0) {
             builder.delete(builder.length() - 2, builder.length());

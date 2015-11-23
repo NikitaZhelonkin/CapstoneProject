@@ -19,4 +19,7 @@
 
     <dimen name="detail_backdrop_height">180dp</dimen>
 
+    <dimen name="list_side_margin">0dp</dimen>
+    <dimen name="detail_inner_horiz_margin">0dp</dimen>
+
 </resources>

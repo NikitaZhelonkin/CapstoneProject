@@ -8,6 +8,6 @@ import com.niksplay.moviesland.adapter.MediaDetailsAdapter;
 public class ItemLabel extends SimpleItem<String> {
 
     public ItemLabel(String data) {
-        super(data, MediaDetailsAdapter.TYPE_LABEL);
+        super(data, ItemType.TYPE_LABEL);
     }
 }

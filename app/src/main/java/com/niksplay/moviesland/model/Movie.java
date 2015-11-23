@@ -54,6 +54,7 @@ public class Movie implements IMedia {
     }
 
     protected Movie(Parcel parcel) {
+        parcel.readString();//read type
         backdropPath = parcel.readString();
         genreIds = parcel.createIntArray();
         id = parcel.readLong();
@@ -70,6 +71,7 @@ public class Movie implements IMedia {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(getType().toString());
         parcel.writeString(backdropPath);
         parcel.writeIntArray(genreIds);
         parcel.writeLong(id);

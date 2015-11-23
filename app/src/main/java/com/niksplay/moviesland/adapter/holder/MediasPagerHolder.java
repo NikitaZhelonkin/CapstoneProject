@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.niksplay.moviesland.R;
 import com.niksplay.moviesland.adapter.item.IListItem;
-import com.niksplay.moviesland.adapter.item.ItemMediaSimilar;
+import com.niksplay.moviesland.adapter.item.ItemPagerMedias;
 import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.utils.ImageUrls;
 import com.squareup.picasso.Picasso;
@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * Created by nikita on 21.11.15.
  */
-public class MediaSimilarHolder extends AbsViewHolder {
+public class MediasPagerHolder extends AbsViewHolder {
 
     private static final int COUNT = 4;
 
@@ -30,7 +30,7 @@ public class MediaSimilarHolder extends AbsViewHolder {
 
     private ViewPagerAdapter mAdapter;
 
-    public MediaSimilarHolder(View itemView) {
+    public MediasPagerHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         mViewPager.setAdapter(mAdapter = new ViewPagerAdapter());
@@ -39,8 +39,8 @@ public class MediaSimilarHolder extends AbsViewHolder {
 
     @Override
     public void bind(IListItem iListItem) {
-        if (iListItem instanceof ItemMediaSimilar) {
-            List<? extends  IMedia> mediaList = ((ItemMediaSimilar) iListItem).getItemData();
+        if (iListItem instanceof ItemPagerMedias) {
+            List<? extends  IMedia> mediaList = ((ItemPagerMedias) iListItem).getItemData();
             List<MediaBlock> blocks = new ArrayList<>();
             int blocksSize = mediaList.size() / COUNT + (mediaList.size() % COUNT == 0 ? 0 : 1);
             for (int i = 0; i < blocksSize; i += COUNT) {

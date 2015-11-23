@@ -1,8 +1,6 @@
 package com.niksplay.moviesland.adapter.item;
 
-import com.niksplay.moviesland.adapter.MediaDetailsAdapter;
 import com.niksplay.moviesland.model.Image;
-import com.niksplay.moviesland.model.response.ImagesResponse;
 
 import java.util.List;
 
@@ -12,6 +10,6 @@ import java.util.List;
 public class ItemMediaImages extends SimpleItem<List<Image>> {
 
     public ItemMediaImages(List<Image> data) {
-        super(data, MediaDetailsAdapter.TYPE_IMAGES);
+        super(data, ItemType.TYPE_MEDIA_IMAGES);
     }
 }

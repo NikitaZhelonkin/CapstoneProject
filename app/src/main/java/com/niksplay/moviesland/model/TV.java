@@ -56,7 +56,7 @@ public class TV extends Movie {
         parcel.writeString(title);
     }
 
-    public TV(Parcel parcel){
+    protected TV(Parcel parcel){
         super(parcel);
         releaseDate = parcel.readString();
         originalTitle = parcel.readString();
