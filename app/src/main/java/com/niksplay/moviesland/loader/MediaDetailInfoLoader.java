@@ -66,13 +66,10 @@ public class MediaDetailInfoLoader extends AsyncTaskLoader<MediaDetailInfo> {
                 detailInfo.credits = creditsResponse.body();
             }
 
-
-
             Response<PagedResponse<Review>> reviewsResponse = moviesService.getReviews(mMedia.getType().toString(), mMedia.getId()).execute();
             if(reviewsResponse.isSuccess()){
                 detailInfo.reviews = reviewsResponse.body().getResults();
             }
-            Log.e(">>>",">>>MEDIA:" + detailInfo.media.getOverview());
             return detailInfo;
         } catch (IOException e) {
             e.printStackTrace();

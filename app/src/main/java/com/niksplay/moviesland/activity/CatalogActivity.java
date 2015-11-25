@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,7 @@ import android.widget.Spinner;
 import com.niksplay.moviesland.Constants;
 import com.niksplay.moviesland.R;
 import com.niksplay.moviesland.adapter.MediaAdapter;
+import com.niksplay.moviesland.adapter.MediaSelectedListener;
 import com.niksplay.moviesland.adapter.SpinnerSubtitleAdapter;
 import com.niksplay.moviesland.adapter.holder.MediasPagerHolder;
 import com.niksplay.moviesland.app.App;
@@ -135,7 +137,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mMediaAdapter = new MediaAdapter());
-        mMediaAdapter.setOnItemSelectedListener(mOnItemSelectedListener);
+        mMediaAdapter.setOnItemSelectedListener(new MediaSelectedListener(this));
         mRecyclerView.addOnScrollListener(new EndlessRecyclerScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore() {
@@ -154,7 +156,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             @Override
             public PagedResponse<? extends IMedia> loadInBackground() {
                 HashMap<String, String> params = new HashMap<>();
-                params.put(Constants.PARAM_YEAR, Constants.PARAM_YEAR);
+                params.put(Constants.PARAM_SORT_BY, args.getString(Constants.PARAM_SORT_BY));
                 params.put(Constants.PARAM_WITH_GENRES, args.getString(Constants.PARAM_WITH_GENRES));
                 params.put(Constants.PARAM_YEAR, args.getString(Constants.PARAM_YEAR));
                 params.put(Constants.PARAM_PAGE, String.valueOf(mPage + 1));
@@ -211,7 +213,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             bundle.putString(Constants.PARAM_WITH_GENRES, String.valueOf(genre.id));
         }
         if (mYearSpinner.getSelectedItemPosition() != 0) {
-            bundle.putString(Constants.PARAM_YEAR, String.valueOf(mYearAdapter.getItem(mGenreSpinner.getSelectedItemPosition() + 1)));
+            bundle.putString(Constants.PARAM_YEAR, String.valueOf(mYearAdapter.getItem(mYearSpinner.getSelectedItemPosition())));
         }
         return bundle;
     }
@@ -242,13 +244,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         }
         return s;
     }
-
-    private MediaAdapter.OnItemSelectedListener mOnItemSelectedListener = new MediaAdapter.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(IMedia media) {
-            startActivity(MediaDetailActivity.createIntent(CatalogActivity.this, media));
-        }
-    };
 
     private class SimpleItemSelectedListener implements AdapterView.OnItemSelectedListener{
 

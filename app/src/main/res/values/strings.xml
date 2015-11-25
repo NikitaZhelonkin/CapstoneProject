@@ -34,5 +34,10 @@
 
     <string name="error_getting_content">Error loading data</string>
 
+    <string name="to_favorite">To Favorite</string>
+    <string name="from_favorite">From Favorite</string>
+    <string name="to_watchlist">To Watchlist</string>
+    <string name="from_watchlist">From Watchlist</string>
+
     <string name="known_for">Known for: %s</string>
 </resources>

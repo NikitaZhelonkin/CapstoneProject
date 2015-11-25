@@ -1,6 +1,7 @@
 package com.niksplay.moviesland.utils;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.niksplay.moviesland.managers.Genres;
 import com.niksplay.moviesland.model.Genre;
@@ -9,6 +10,7 @@ import com.niksplay.moviesland.model.Person;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -33,23 +35,17 @@ public class Utils {
     }
 
     public static String formatGenres(IMedia iMovie) {
-        int genres[] = iMovie.getGenreIds();
+        Genre[] genres = iMovie.getGenres();
         if (genres == null) {
-            return "";
-        }
-        StringBuilder builder = new StringBuilder();
-        for (int i : genres) {
-            Genre genre = Genres.getGenre(i);
-            if (genre != null) {
-                builder.append(genre.name).append(", ");
+            if (iMovie.getGenreIds() == null) {
+                return "";
+            }
+            genres = new Genre[iMovie.getGenreIds().length];
+            for (int i = 0; i < iMovie.getGenreIds().length; i++) {
+                genres[i] = Genres.getGenre(iMovie.getGenreIds()[i]);
             }
         }
-        if (builder.length() > 0) {
-            builder.delete(builder.length() - 2, builder.length());
-            return builder.toString();
-        } else {
-            return "";
-        }
+        return TextUtils.join(", ", genres);
     }
 
     public static String formatKnownFor(Person person){

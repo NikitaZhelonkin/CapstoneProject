@@ -1,0 +1,13 @@
+{
+	"syntaxVersion": "3",
+	"projectPackageId": "com.niksplay.moviesland",
+	"authority": "com.niksplay.moviesland.provider",
+	"providerJavaPackage": "com.niksplay.moviesland.provider",
+	"providerClassName": "MediaProvider",
+	"sqliteOpenHelperClassName": "SQLiteHelper",
+	"sqliteOpenHelperCallbacksClassName": "SQLiteHelperCallbacks",
+	"databaseFileName": "movies.db",
+	"databaseVersion": 1,
+	"enableForeignKeys": true,
+	"useAnnotations": true
+}

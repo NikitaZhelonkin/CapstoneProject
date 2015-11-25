@@ -53,6 +53,11 @@
             android:name=".activity.PersonActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <provider
+            android:name="com.niksplay.moviesland.provider.MediaProvider"
+            android:authorities="com.niksplay.moviesland.provider"
+            android:exported="false" />
+
     </application>
 
 </manifest>

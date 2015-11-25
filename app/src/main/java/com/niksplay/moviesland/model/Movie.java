@@ -1,16 +1,15 @@
 package com.niksplay.moviesland.model;
 
 import android.os.Parcel;
-import android.os.Parcelable;
-import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
+import com.niksplay.moviesland.provider.favorite.FavoriteCursor;
+import com.niksplay.moviesland.provider.watchlist.WatchlistCursor;
+import com.niksplay.moviesland.utils.ArrayUtils;
+import com.niksplay.moviesland.utils.Utils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
 /**
  * Created by nikita on 15.11.15.
@@ -21,6 +20,8 @@ public class Movie implements IMedia {
     public String backdropPath;
     @SerializedName("genre_ids")
     public int[] genreIds;
+    @SerializedName("genres")
+    public Genre[] genres;
     public long id;
     @SerializedName("original_title")
     public String originalTitle;
@@ -53,8 +54,33 @@ public class Movie implements IMedia {
 
     }
 
+    public Movie(FavoriteCursor cursor) {
+        backdropPath = cursor.getBackdropPath();
+        id = cursor.getMovieId() != null ? cursor.getMovieId() : 0;
+        originalTitle = cursor.getOriginalTitle();
+        overview = cursor.getOverview();
+        releaseDate = cursor.getReleaseDate();
+        posterPath = cursor.getPosterPath();
+        title = cursor.getTitle();
+        voteAverage = cursor.getVoteAverage() != null ? cursor.getVoteAverage() : 0;
+        voteCount = cursor.getVoteCount() != null ? cursor.getVoteCount() : 0;
+        genreIds = ArrayUtils.split(",", cursor.getGenres());
+    }
+
+    public Movie(WatchlistCursor cursor) {
+        backdropPath = cursor.getBackdropPath();
+        id = cursor.getMovieId() != null ? cursor.getMovieId() : 0;
+        originalTitle = cursor.getOriginalTitle();
+        overview = cursor.getOverview();
+        releaseDate = cursor.getReleaseDate();
+        posterPath = cursor.getPosterPath();
+        title = cursor.getTitle();
+        voteAverage = cursor.getVoteAverage() != null ? cursor.getVoteAverage() : 0;
+        voteCount = cursor.getVoteCount() != null ? cursor.getVoteCount() : 0;
+        genreIds = ArrayUtils.split(",", cursor.getGenres());
+    }
+
     protected Movie(Parcel parcel) {
-        parcel.readString();//read type
         backdropPath = parcel.readString();
         genreIds = parcel.createIntArray();
         id = parcel.readLong();
@@ -71,7 +97,6 @@ public class Movie implements IMedia {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(getType().toString());
         parcel.writeString(backdropPath);
         parcel.writeIntArray(genreIds);
         parcel.writeLong(id);
@@ -99,7 +124,21 @@ public class Movie implements IMedia {
 
     @Override
     public int[] getGenreIds() {
+        if (genreIds != null) {
+            return genreIds;
+        }
+        if (genres != null) {
+            genreIds = new int[genres.length];
+            for (int i = 0; i < genres.length; i++) {
+                genreIds[i] = genres[i].id;
+            }
+        }
         return genreIds;
+    }
+
+    @Override
+    public Genre[] getGenres() {
+        return genres;
     }
 
     @Override

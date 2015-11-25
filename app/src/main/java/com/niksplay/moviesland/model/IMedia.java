@@ -27,6 +27,8 @@ public interface IMedia extends Parcelable {
 
     int[] getGenreIds();
 
+    Genre[] getGenres();
+
     long getId();
 
     String getOriginalTitle();

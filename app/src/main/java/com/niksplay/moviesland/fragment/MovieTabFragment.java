@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.niksplay.moviesland.activity.MediaDetailActivity;
 import com.niksplay.moviesland.adapter.MediaAdapter;
+import com.niksplay.moviesland.adapter.MediaSelectedListener;
 import com.niksplay.moviesland.app.App;
 import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.model.Movie;
@@ -19,7 +20,7 @@ import retrofit.Response;
 /**
  * Created by nikita on 16.11.15.
  */
-public class MovieTabFragment extends PagingListFragment<Movie> implements MediaAdapter.OnItemSelectedListener {
+public class MovieTabFragment extends PagingListFragment<Movie> {
 
     private static final String EXTRA_TAB= "tab";
 
@@ -55,12 +56,7 @@ public class MovieTabFragment extends PagingListFragment<Movie> implements Media
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView.setAdapter(mAdapter = new MediaAdapter());
-        mAdapter.setOnItemSelectedListener(this);
-    }
-
-    @Override
-    public void onItemSelected(IMedia media) {
-        startActivity(MediaDetailActivity.createIntent(getActivity(), media));
+        mAdapter.setOnItemSelectedListener(new MediaSelectedListener(getActivity()));
     }
 
     @Override

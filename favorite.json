@@ -1,0 +1,66 @@
+{
+  "documentation": "A favorite movies.",
+  "fields": [
+    {
+      "documentation": "backdropPath",
+      "name": "backdrop_path",
+      "type": "String"
+    },
+    {
+      "documentation": "movie id",
+      "name": "movie_id",
+      "type": "Long",
+      "index": true
+    },
+    {
+      "documentation": "original title",
+      "name": "original_title",
+      "type": "String"
+    },
+    {
+      "documentation": "overview",
+      "name": "overview",
+      "type": "String"
+    },
+    {
+      "documentation": "release date",
+      "name": "release_date",
+      "type": "String"
+    },
+    {
+      "documentation": "poster path",
+      "name": "poster_path",
+      "type": "String"
+    },
+    {
+      "documentation": "popularity",
+      "name": "popularity",
+      "type": "Float"
+    },
+    {
+      "documentation": "title",
+      "name": "title",
+      "type": "String"
+    },
+    {
+      "documentation": "vote average",
+      "name": "vote_average",
+      "type": "Float"
+    },
+    {
+      "documentation": "vote count",
+      "name": "vote_count",
+      "type": "Integer"
+    },
+    {
+      "documentation": "media type",
+      "name": "media_type",
+      "type": "String"
+    },
+    {
+      "documentation": "genres",
+      "name": "genres",
+      "type": "String"
+    }
+  ]
+}

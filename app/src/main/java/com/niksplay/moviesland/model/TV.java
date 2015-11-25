@@ -3,6 +3,8 @@ package com.niksplay.moviesland.model;
 import android.os.Parcel;
 
 import com.google.gson.annotations.SerializedName;
+import com.niksplay.moviesland.provider.favorite.FavoriteCursor;
+import com.niksplay.moviesland.provider.watchlist.WatchlistCursor;
 
 /**
  * Created by nikita on 15.11.15.
@@ -60,6 +62,13 @@ public class TV extends Movie {
 
     }
 
+    public TV(FavoriteCursor cursor){
+        super(cursor);
+    }
+
+    public TV(WatchlistCursor cursor){
+        super(cursor);
+    }
     protected TV(Parcel parcel){
         super(parcel);
         releaseDate = parcel.readString();

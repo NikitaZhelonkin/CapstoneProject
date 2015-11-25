@@ -17,6 +17,7 @@ import com.niksplay.moviesland.activity.MediaDetailActivity;
 import com.niksplay.moviesland.activity.PersonActivity;
 import com.niksplay.moviesland.adapter.RecyclerItemsAdapter;
 import com.niksplay.moviesland.adapter.holder.CreditPagerHolder;
+import com.niksplay.moviesland.adapter.holder.MediaDetailHeaderHolder;
 import com.niksplay.moviesland.adapter.holder.MediasPagerHolder;
 import com.niksplay.moviesland.adapter.item.IListItem;
 import com.niksplay.moviesland.adapter.item.ItemLabel;
@@ -24,8 +25,10 @@ import com.niksplay.moviesland.adapter.item.ItemMediaImages;
 import com.niksplay.moviesland.adapter.item.ItemPagerCredits;
 import com.niksplay.moviesland.adapter.item.ItemPagerMedias;
 import com.niksplay.moviesland.adapter.item.ItemReview;
-import com.niksplay.moviesland.adapter.item.MediaDetailHeaderItem;
+import com.niksplay.moviesland.adapter.item.ItemMediaDetailHeader;
 import com.niksplay.moviesland.loader.MediaDetailInfoLoader;
+import com.niksplay.moviesland.managers.FavoriteManager;
+import com.niksplay.moviesland.managers.WatchlistManager;
 import com.niksplay.moviesland.model.Credit;
 import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.model.MediaDetailInfo;
@@ -116,7 +119,7 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
     private void invalidate() {
         updateBackdropImage();
         List<IListItem> items = new ArrayList<>();
-        items.add(new MediaDetailHeaderItem(mMedia));
+        items.add(new ItemMediaDetailHeader(mMedia, mButtonsClickListener));
 
         if (mMediaDetailInfo != null) {
             if (mMediaDetailInfo.images != null && !ArrayUtils.isEmpty(mMediaDetailInfo.images.backdrops)) {
@@ -159,6 +162,20 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
         @Override
         public void onItemSelected(Credit credit) {
             startActivity(PersonActivity.createIntent(getActivity(), credit.createPerson()));
+        }
+    };
+
+    private MediaDetailHeaderHolder.OnButtonsClickListener mButtonsClickListener = new MediaDetailHeaderHolder.OnButtonsClickListener() {
+        @Override
+        public void onFavoriteClick() {
+            FavoriteManager.toggleFavorite(mMedia);
+            mAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onWatchlistClick() {
+            WatchlistManager.toggleWatchlist(mMedia);
+            mAdapter.notifyDataSetChanged();
         }
     };
 

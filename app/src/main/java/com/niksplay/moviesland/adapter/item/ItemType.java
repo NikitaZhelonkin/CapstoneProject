@@ -5,7 +5,6 @@ package com.niksplay.moviesland.adapter.item;
  */
 public class ItemType {
 
-
     public static final int TYPE_MEDIA_HEADER = 0;
     public static final int TYPE_MEDIA_IMAGES = 1;
     public static final int TYPE_LABEL = 2;
