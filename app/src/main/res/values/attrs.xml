@@ -4,4 +4,9 @@
         <attr name="ratio" format="float"/>
     </declare-styleable>
 
+    <declare-styleable name="DoublerView">
+        <attr name="count" format="integer"/>
+        <attr name="layoutId" format="reference"/>
+    </declare-styleable>
+
 </resources>

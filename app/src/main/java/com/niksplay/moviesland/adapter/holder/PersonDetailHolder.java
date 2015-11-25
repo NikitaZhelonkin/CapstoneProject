@@ -45,7 +45,7 @@ public class PersonDetailHolder extends AbsViewHolder {
             mNameView.setText(person.name);
             mBirthDateView.setText(person.birthday);
             mBirthPlaceView.setText(person.placeOfBirth);
-            Picasso.with(context).load(ImageUrls.getPersonPosterUrl(person.profilePath)).into(mImageView);
+            Picasso.with(context).load(ImageUrls.getPosterUrl(person.profilePath)).into(mImageView);
         }
     }
 }

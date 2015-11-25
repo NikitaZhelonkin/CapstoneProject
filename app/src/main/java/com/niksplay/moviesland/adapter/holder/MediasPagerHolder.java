@@ -10,6 +10,7 @@ import com.niksplay.moviesland.adapter.item.IListItem;
 import com.niksplay.moviesland.adapter.item.ItemPagerMedias;
 import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.utils.ImageUrls;
+import com.niksplay.moviesland.widget.DoublerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,18 +28,18 @@ public class MediasPagerHolder extends AbsViewHolder {
         void onItemSelected(IMedia media);
     }
 
-    private static final int COUNT = 4;
-
     @Bind(R.id.view_pager)
     ViewPager mViewPager;
 
     private ViewPagerAdapter mAdapter;
 
     private OnItemSelectedListener mOnItemSelectedListener;
+    private int mCount;
 
-    public MediasPagerHolder(View itemView, OnItemSelectedListener listener) {
+    public MediasPagerHolder(View itemView, int count, OnItemSelectedListener listener) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        mCount = count;
         mOnItemSelectedListener = listener;
         mViewPager.setAdapter(mAdapter = new ViewPagerAdapter());
     }
@@ -49,10 +50,10 @@ public class MediasPagerHolder extends AbsViewHolder {
         if (iListItem instanceof ItemPagerMedias) {
             List<? extends  IMedia> mediaList = ((ItemPagerMedias) iListItem).getItemData();
             List<MediaBlock> blocks = new ArrayList<>();
-            int blocksSize = mediaList.size() / COUNT + (mediaList.size() % COUNT == 0 ? 0 : 1);
-            for (int i = 0; i < blocksSize; i += COUNT) {
-                IMedia[] media = new IMedia[COUNT];
-                for (int j = 0; j < COUNT && i + j < mediaList.size(); j++) {
+            int blocksSize = mediaList.size() / mCount + (mediaList.size() % mCount == 0 ? 0 : 1);
+            for (int i = 0; i < blocksSize; i += mCount) {
+                IMedia[] media = new IMedia[mCount];
+                for (int j = 0; j < mCount && i + j < mediaList.size(); j++) {
                     media[j] = mediaList.get(i + j);
                 }
                 blocks.add(new MediaBlock(media));
@@ -80,22 +81,18 @@ public class MediasPagerHolder extends AbsViewHolder {
         @Override
         public View getView(int position, ViewPager pager) {
             LayoutInflater inflater = LayoutInflater.from(pager.getContext());
-            View view = inflater.inflate(R.layout.page_item_images, pager, false);
-            ImageView[] imageViews = new ImageView[COUNT];
-            imageViews[0] = (ImageView) view.findViewById(R.id.image1);
-            imageViews[1] = (ImageView) view.findViewById(R.id.image2);
-            imageViews[2] = (ImageView) view.findViewById(R.id.image3);
-            imageViews[3] = (ImageView) view.findViewById(R.id.image4);
+            DoublerView view = (DoublerView)inflater.inflate(R.layout.page_item_images, pager, false);
             IMedia[] medias = mData.get(position).medias;
-            for (int i = 0; i < COUNT; i++) {
+            for (int i = 0; i < mCount; i++) {
+                ImageView imageView = (ImageView) view.getChildAt(i).findViewById(R.id.image_view);
                 if (i < medias.length && medias[i] != null) {
-                    imageViews[i].setVisibility(View.VISIBLE);
-                    Picasso.with(pager.getContext()).load(ImageUrls.getPosterUrl(medias[i].getPosterPath())).into(imageViews[i]);
+                    imageView.setVisibility(View.VISIBLE);
+                    Picasso.with(pager.getContext()).load(ImageUrls.getPosterUrl(medias[i].getPosterPath())).into(imageView);
                 } else {
-                    imageViews[i].setVisibility(View.INVISIBLE);
+                    imageView.setVisibility(View.INVISIBLE);
                 }
-                imageViews[i].setTag(medias[i]);
-                imageViews[i].setOnClickListener(new View.OnClickListener() {
+                imageView.setTag(medias[i]);
+                imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (mOnItemSelectedListener != null) {

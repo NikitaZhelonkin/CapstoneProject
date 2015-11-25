@@ -121,6 +121,8 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
         List<IListItem> items = new ArrayList<>();
         items.add(new ItemMediaDetailHeader(mMedia, mButtonsClickListener));
 
+        int pagerItemsCount = getResources().getInteger(R.integer.pager_items_count);
+
         if (mMediaDetailInfo != null) {
             if (mMediaDetailInfo.images != null && !ArrayUtils.isEmpty(mMediaDetailInfo.images.backdrops)) {
                 items.add(new ItemMediaImages(mMediaDetailInfo.images.backdrops));
@@ -128,12 +130,12 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
 
             if (mMediaDetailInfo.credits != null && !ArrayUtils.isEmpty(mMediaDetailInfo.credits.cast)) {
                 items.add(new ItemLabel(getString(R.string.label_persons)));
-                items.add(new ItemPagerCredits(mMediaDetailInfo.credits.cast, mPersonSelectedListener));
+                items.add(new ItemPagerCredits(mMediaDetailInfo.credits.cast, pagerItemsCount, mPersonSelectedListener));
             }
 
             if (!ArrayUtils.isEmpty(mMediaDetailInfo.relatedMedia)) {
                 items.add(new ItemLabel(getString(R.string.label_similar)));
-                items.add(new ItemPagerMedias(mMediaDetailInfo.relatedMedia, mRelatedItemSelectedListener));
+                items.add(new ItemPagerMedias(mMediaDetailInfo.relatedMedia, pagerItemsCount, mRelatedItemSelectedListener));
             }
 
             if (!ArrayUtils.isEmpty(mMediaDetailInfo.reviews)) {

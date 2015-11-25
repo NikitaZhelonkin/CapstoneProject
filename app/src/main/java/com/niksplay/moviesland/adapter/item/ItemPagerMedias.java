@@ -16,15 +16,17 @@ import java.util.List;
  */
 public class ItemPagerMedias extends SimpleItem<List<? extends IMedia>> {
 
-    public MediasPagerHolder.OnItemSelectedListener mItemSelectedListener;
+    private MediasPagerHolder.OnItemSelectedListener mItemSelectedListener;
+    private int mCount;
 
-    public ItemPagerMedias(List<? extends IMedia> data, MediasPagerHolder.OnItemSelectedListener l) {
-        super(data, ItemType.TYPE_MEDIAS);
+    public ItemPagerMedias(List<? extends IMedia> data, int count, MediasPagerHolder.OnItemSelectedListener l) {
+        super(data, ItemType.TYPE_MEDIAS * count);
         mItemSelectedListener = l;
+        mCount = count;
     }
 
     @Override
     public AbsViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent) {
-        return new MediasPagerHolder(inflater.inflate(R.layout.list_item_medias, parent, false), mItemSelectedListener);
+        return new MediasPagerHolder(inflater.inflate(R.layout.list_item_medias, parent, false),mCount, mItemSelectedListener);
     }
 }

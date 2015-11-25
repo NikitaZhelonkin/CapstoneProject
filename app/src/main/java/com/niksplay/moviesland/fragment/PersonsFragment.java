@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -80,9 +81,10 @@ public class PersonsFragment extends NavigationFragment
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-        mRecyclerView.addOnScrollListener(new EndlessRecyclerScrollListener(linearLayoutManager) {
+        int columnsCount = getResources().getInteger(R.integer.column_count);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), columnsCount);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.addOnScrollListener(new EndlessRecyclerScrollListener(layoutManager) {
             @Override
             public void onLoadMore() {
                 if (!mLoading && mPage + 1 <= mTotalPages) {

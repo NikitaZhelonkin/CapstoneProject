@@ -7,6 +7,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -134,11 +135,12 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         mGenreSpinner.setAdapter(mGenresAdapter);
         mGenreSpinner.setOnItemSelectedListener(new SimpleItemSelectedListener());
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
+        int columnsCount = getResources().getInteger(R.integer.column_count);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, columnsCount);
+        mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mMediaAdapter = new MediaAdapter());
         mMediaAdapter.setOnItemSelectedListener(new MediaSelectedListener(this));
-        mRecyclerView.addOnScrollListener(new EndlessRecyclerScrollListener(linearLayoutManager) {
+        mRecyclerView.addOnScrollListener(new EndlessRecyclerScrollListener(layoutManager) {
             @Override
             public void onLoadMore() {
                 if (!mLoading && mPage + 1 <= mTotalPages) {

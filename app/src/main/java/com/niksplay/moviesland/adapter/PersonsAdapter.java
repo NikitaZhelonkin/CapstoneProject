@@ -59,7 +59,7 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHold
         holder.mNameView.setText(person.name);
         String knownFor = Utils.formatKnownFor(person);
         holder.mKnowForView.setText(!TextUtils.isEmpty(knownFor) ? context.getString(R.string.known_for, knownFor) : "");
-        Picasso.with(context).load(ImageUrls.getPersonPosterUrl(person.profilePath)).into(holder.mImageView);
+        Picasso.with(context).load(ImageUrls.getPosterUrl(person.profilePath)).into(holder.mImageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

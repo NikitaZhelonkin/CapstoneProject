@@ -141,16 +141,17 @@ public class PersonFragment extends Fragment implements LoaderManager.LoaderCall
         if (mLoading) {
             items.add(new ItemLoader());
         } else {
+            int pagerItemsCount = getResources().getInteger(R.integer.pager_items_count);
             items.add(new ItemPersonHeader(mPerson));
             if (mPerson.combinedCredits != null) {
                 if (!ArrayUtils.isEmpty(mPerson.combinedCredits.cast)) {
                     items.add(new ItemLabel(getString(R.string.label_cast)));
-                    items.add(new ItemPagerCredits(mPerson.combinedCredits.cast, mCreditItemSelectedListener));
+                    items.add(new ItemPagerCredits(mPerson.combinedCredits.cast, pagerItemsCount, mCreditItemSelectedListener));
                 }
 
                 if (!ArrayUtils.isEmpty(mPerson.combinedCredits.crew)) {
                     items.add(new ItemLabel(getString(R.string.label_crew)));
-                    items.add(new ItemPagerCredits(mPerson.combinedCredits.crew, mCreditItemSelectedListener));
+                    items.add(new ItemPagerCredits(mPerson.combinedCredits.crew, pagerItemsCount, mCreditItemSelectedListener));
                 }
 
             }

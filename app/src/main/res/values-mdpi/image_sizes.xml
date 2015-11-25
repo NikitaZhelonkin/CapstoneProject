@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="poster_size">w92</string>
+    <string name="media_image_size">w154</string>
+    <string name="backdrop_size">w300</string>
+</resources>

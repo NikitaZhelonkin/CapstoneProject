@@ -5,4 +5,7 @@
     <dimen name="activity_horizontal_margin">64dp</dimen>
 
     <dimen name="list_side_margin">64dp</dimen>
+    <dimen name="filter_side_margin">72dp</dimen>
+
+    <dimen name="list_detail_side_margin">112dp</dimen>
 </resources>

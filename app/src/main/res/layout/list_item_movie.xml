@@ -11,13 +11,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/list_item_image_height"
         android:orientation="vertical">
 
         <ImageView
             android:contentDescription="@null"
             android:id="@+id/movie_thumbnail"
             android:layout_width="@dimen/list_item_image_width"
+            android:scaleType="centerCrop"
             android:layout_height="@dimen/list_item_image_height"
             android:background="@color/photoPlaceholder" />
 
@@ -34,7 +35,7 @@
             tools:text="Title some title"
             android:textColor="@android:color/black"
             android:ellipsize="end"
-            android:maxLines="4" />
+            android:maxLines="2" />
 
         <TextView
             android:id="@+id/movie_rate"

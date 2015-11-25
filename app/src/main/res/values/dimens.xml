@@ -17,9 +17,12 @@
 
     <dimen name="list_item_backdrop_image_height">100dp</dimen>
 
-    <dimen name="detail_backdrop_height">180dp</dimen>
+    <dimen name="list_detail_side_margin">0dp</dimen>
+
+    <dimen name="detail_backdrop_height">200dp</dimen>
 
     <dimen name="list_side_margin">0dp</dimen>
+    <dimen name="filter_side_margin">8dp</dimen>
     <dimen name="detail_inner_horiz_margin">0dp</dimen>
 
 </resources>

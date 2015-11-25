@@ -17,13 +17,16 @@ public class ItemPagerCredits extends SimpleItem<List<Credit>> {
 
     CreditPagerHolder.OnItemSelectedListener mOnItemSelectedListener;
 
-    public ItemPagerCredits(List<Credit> data, CreditPagerHolder.OnItemSelectedListener listener) {
-        super(data, ItemType.TYPE_CREDITS);
+    private int mCount;
+
+    public ItemPagerCredits(List<Credit> data, int count, CreditPagerHolder.OnItemSelectedListener listener) {
+        super(data, ItemType.TYPE_CREDITS * count);
         mOnItemSelectedListener = listener;
+        mCount = count;
     }
 
     @Override
     public AbsViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent) {
-        return new CreditPagerHolder(inflater.inflate(R.layout.list_item_pager_credits, parent, false), mOnItemSelectedListener);
+        return new CreditPagerHolder(inflater.inflate(R.layout.list_item_pager_credits, parent, false),  mCount,  mOnItemSelectedListener);
     }
 }

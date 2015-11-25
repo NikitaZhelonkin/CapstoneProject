@@ -10,6 +10,7 @@ import com.niksplay.moviesland.adapter.item.IListItem;
 import com.niksplay.moviesland.adapter.item.ItemPagerCredits;
 import com.niksplay.moviesland.model.Credit;
 import com.niksplay.moviesland.utils.ImageUrls;
+import com.niksplay.moviesland.widget.DoublerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,8 +28,6 @@ public class CreditPagerHolder extends AbsViewHolder {
         void onItemSelected(Credit credit);
     }
 
-    private static final int COUNT = 4;
-
     @Bind(R.id.view_pager)
     ViewPager mViewPager;
 
@@ -36,11 +35,14 @@ public class CreditPagerHolder extends AbsViewHolder {
 
     private OnItemSelectedListener mOnItemSelectedListener;
 
-    public CreditPagerHolder(View itemView, OnItemSelectedListener listener) {
+    private int mCount;
+
+    public CreditPagerHolder(View itemView, int count, OnItemSelectedListener listener) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         mViewPager.setAdapter(mAdapter = new ViewPagerAdapter());
         mOnItemSelectedListener = listener;
+        mCount = count;
     }
 
 
@@ -49,10 +51,10 @@ public class CreditPagerHolder extends AbsViewHolder {
         if (iListItem instanceof ItemPagerCredits) {
             List<Credit> creditList = ((ItemPagerCredits) iListItem).getItemData();
             List<CreditBlock> blocks = new ArrayList<>();
-            int blocksSize = creditList.size() / COUNT + (creditList.size() % COUNT == 0 ? 0 : 1);
-            for (int i = 0; i < blocksSize; i += COUNT) {
-                Credit[] credits = new Credit[COUNT];
-                for (int j = 0; j < COUNT && i + j < creditList.size(); j++) {
+            int blocksSize = creditList.size() / mCount + (creditList.size() % mCount == 0 ? 0 : 1);
+            for (int i = 0; i < blocksSize; i += mCount) {
+                Credit[] credits = new Credit[mCount];
+                for (int j = 0; j < mCount && i + j < creditList.size(); j++) {
                     credits[j] = creditList.get(i + j);
                 }
                 blocks.add(new CreditBlock(credits));
@@ -80,27 +82,23 @@ public class CreditPagerHolder extends AbsViewHolder {
         @Override
         public View getView(int position, ViewPager pager) {
             LayoutInflater inflater = LayoutInflater.from(pager.getContext());
-            View view = inflater.inflate(R.layout.page_item_images, pager, false);
-            ImageView[] imageViews = new ImageView[COUNT];
-            imageViews[0] = (ImageView) view.findViewById(R.id.image1);
-            imageViews[1] = (ImageView) view.findViewById(R.id.image2);
-            imageViews[2] = (ImageView) view.findViewById(R.id.image3);
-            imageViews[3] = (ImageView) view.findViewById(R.id.image4);
+            DoublerView view = (DoublerView)inflater.inflate(R.layout.page_item_images, pager, false);
             Credit[] credits = mData.get(position).credits;
-            for (int i = 0; i < COUNT; i++) {
+            for (int i = 0; i < mCount; i++) {
+                ImageView imageView = (ImageView) view.getChildAt(i).findViewById(R.id.image_view);
                 if (i < credits.length && credits[i] != null) {
-                    imageViews[i].setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.VISIBLE);
 
-                    Picasso.with(pager.getContext()).load(ImageUrls.getPersonPosterUrl(credits[i].getImageUrl())).into(imageViews[i]);
+                    Picasso.with(pager.getContext()).load(ImageUrls.getPosterUrl(credits[i].getImageUrl())).into(imageView);
                 } else {
-                    imageViews[i].setVisibility(View.INVISIBLE);
+                    imageView.setVisibility(View.INVISIBLE);
                 }
-                imageViews[i].setTag(credits[i]);
-                imageViews[i].setOnClickListener(new View.OnClickListener() {
+                imageView.setTag(credits[i]);
+                imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(mOnItemSelectedListener != null){
-                            mOnItemSelectedListener.onItemSelected((Credit)view.getTag());
+                        if (mOnItemSelectedListener != null) {
+                            mOnItemSelectedListener.onItemSelected((Credit) view.getTag());
                         }
                     }
                 });

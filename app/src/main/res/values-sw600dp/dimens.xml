@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="detail_inner_horiz_margin">64dp</dimen>
+
+    <dimen name="list_item_image_width">132dp</dimen>
+    <dimen name="list_item_image_height">207dp</dimen>
+
+    <dimen name="list_item_person_image_width">132dp</dimen>
+    <dimen name="list_item_person_image_height">207dp</dimen>
+
+    <dimen name="list_item_backdrop_image_height">150dp</dimen>
+
+    <dimen name="detail_photo_height">384dp</dimen>
+
+
 </resources>
