@@ -1,6 +1,7 @@
 package com.niksplay.moviesland.fragment;
 
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,10 +10,10 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.niksplay.moviesland.R;
 import com.niksplay.moviesland.activity.MediaDetailActivity;
@@ -23,11 +24,11 @@ import com.niksplay.moviesland.adapter.holder.MediaDetailHeaderHolder;
 import com.niksplay.moviesland.adapter.holder.MediasPagerHolder;
 import com.niksplay.moviesland.adapter.item.IListItem;
 import com.niksplay.moviesland.adapter.item.ItemLabel;
+import com.niksplay.moviesland.adapter.item.ItemMediaDetailHeader;
 import com.niksplay.moviesland.adapter.item.ItemMediaImages;
 import com.niksplay.moviesland.adapter.item.ItemPagerCredits;
 import com.niksplay.moviesland.adapter.item.ItemPagerMedias;
 import com.niksplay.moviesland.adapter.item.ItemReview;
-import com.niksplay.moviesland.adapter.item.ItemMediaDetailHeader;
 import com.niksplay.moviesland.loader.MediaDetailInfoLoader;
 import com.niksplay.moviesland.managers.FavoriteManager;
 import com.niksplay.moviesland.managers.WatchlistManager;
@@ -36,9 +37,9 @@ import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.model.MediaDetailInfo;
 import com.niksplay.moviesland.model.Review;
 import com.niksplay.moviesland.utils.ArrayUtils;
-import com.niksplay.moviesland.utils.ImageUrls;
+import com.niksplay.moviesland.utils.Utils;
+import com.niksplay.moviesland.widget.CoordinatorLayout;
 import com.niksplay.moviesland.widget.DrawInsetsFrameLayout;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +60,7 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
 
     private RecyclerItemsAdapter mAdapter;
 
-    @Bind(R.id.recycler_view)
-    RecyclerView mRecyclerView;
+    @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
 
 
     public static MediaDetailFragment create(IMedia movie) {
@@ -96,14 +96,24 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
 
         getActivity().setTitle(mMedia.getTitle());
 
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter = new RecyclerItemsAdapter());
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                View backdropView = recyclerView.findViewById(R.id.backdrop_view);
+                if (backdropView != null) {
+                    backdropView.setTranslationY(recyclerView.computeVerticalScrollOffset() / 2);
+                }
+            }
+        });
 
 
+        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) getActivity().findViewById(R.id.coordinator_layout);
+        coordinatorLayout.setupViews((Toolbar)getActivity().findViewById(R.id.toolbar), mRecyclerView);
         invalidate();
     }
-
 
     @Override
     public Loader<MediaDetailInfo> onCreateLoader(int id, Bundle args) {
