@@ -45,6 +45,8 @@ public class MediaDetailHeaderHolder extends AbsViewHolder{
     Button favoriteButton;
     @Bind(R.id.watchlist_btn)
     Button watchlistButton;
+    @Bind(R.id.backdrop_view)
+    ImageView mBackdropView;
 
     Context mContext;
 
@@ -60,6 +62,7 @@ public class MediaDetailHeaderHolder extends AbsViewHolder{
     @Override
     public void bind(IListItem iListItem) {
         if(iListItem instanceof ItemMediaDetailHeader){
+
             IMedia media =   ((ItemMediaDetailHeader) iListItem).getItemData();
             int year = Utils.getYear(media.getReleaseDate());
             movieTitle.setText(media.getTitle());
@@ -91,6 +94,8 @@ public class MediaDetailHeaderHolder extends AbsViewHolder{
                     }
                 }
             });
+
+            Picasso.with(mContext).load(ImageUrls.getBackdropUrl(media.getBackdropPath())).into(mBackdropView);
 
         }
     }

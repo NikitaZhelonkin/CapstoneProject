@@ -2,33 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="8dp"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
     android:clickable="true"
     android:focusableInTouchMode="true"
     android:foreground="?selectableItemBackground"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:paddingLeft="@dimen/detail_inner_horiz_margin"
+    android:paddingRight="@dimen/detail_inner_horiz_margin"
+    android:background="@android:color/white"
+    android:elevation="2dp"
+    android:layout_marginLeft="@dimen/list_detail_side_margin"
+    android:layout_marginRight="@dimen/list_detail_side_margin">
 
     <TextView
         android:id="@+id/author_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/content_view"
-        android:layout_marginTop="8dp"
         android:layout_width="wrap_content"
-        android:maxLines="3"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
-        android:layout_height="wrap_content"/>
+        android:maxLines="3" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
-        android:background="#cccc"/>
+        android:background="#cccc" />
 
 </LinearLayout>

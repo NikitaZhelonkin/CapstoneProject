@@ -1,5 +1,7 @@
 package com.niksplay.moviesland.fragment;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -35,6 +37,7 @@ import com.niksplay.moviesland.model.MediaDetailInfo;
 import com.niksplay.moviesland.model.Review;
 import com.niksplay.moviesland.utils.ArrayUtils;
 import com.niksplay.moviesland.utils.ImageUrls;
+import com.niksplay.moviesland.widget.DrawInsetsFrameLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -93,11 +96,14 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
 
         getActivity().setTitle(mMedia.getTitle());
 
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mAdapter = new RecyclerItemsAdapter());
 
+
         invalidate();
     }
+
 
     @Override
     public Loader<MediaDetailInfo> onCreateLoader(int id, Bundle args) {
@@ -117,7 +123,6 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
     }
 
     private void invalidate() {
-        updateBackdropImage();
         List<IListItem> items = new ArrayList<>();
         items.add(new ItemMediaDetailHeader(mMedia, mButtonsClickListener));
 
@@ -146,11 +151,6 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
         }
 
         mAdapter.setData(items);
-    }
-
-    private void updateBackdropImage(){
-        ImageView backdropView = (ImageView)getActivity().findViewById(R.id.backdrop_view);
-        Picasso.with(getActivity()).load(ImageUrls.getBackdropUrl(mMedia.getBackdropPath())).into(backdropView);
     }
 
     private MediasPagerHolder.OnItemSelectedListener mRelatedItemSelectedListener = new MediasPagerHolder.OnItemSelectedListener() {

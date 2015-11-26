@@ -20,9 +20,12 @@
     <dimen name="list_detail_side_margin">0dp</dimen>
 
     <dimen name="detail_backdrop_height">200dp</dimen>
+    <dimen name="detail_card_top_margin">@dimen/detail_backdrop_height</dimen>
+    <dimen name="detail_card_top_padding">8dp</dimen>
+
 
     <dimen name="list_side_margin">0dp</dimen>
     <dimen name="filter_side_margin">8dp</dimen>
-    <dimen name="detail_inner_horiz_margin">0dp</dimen>
+    <dimen name="detail_inner_horiz_margin">8dp</dimen>
 
 </resources>
