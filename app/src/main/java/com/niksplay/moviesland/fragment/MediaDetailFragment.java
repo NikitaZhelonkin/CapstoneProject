@@ -18,9 +18,11 @@ import android.view.ViewGroup;
 import com.niksplay.moviesland.R;
 import com.niksplay.moviesland.activity.MediaDetailActivity;
 import com.niksplay.moviesland.activity.PersonActivity;
+import com.niksplay.moviesland.activity.ReviewActivity;
 import com.niksplay.moviesland.adapter.RecyclerItemsAdapter;
 import com.niksplay.moviesland.adapter.holder.CreditPagerHolder;
 import com.niksplay.moviesland.adapter.holder.MediaDetailHeaderHolder;
+import com.niksplay.moviesland.adapter.holder.MediaReviewHolder;
 import com.niksplay.moviesland.adapter.holder.MediasPagerHolder;
 import com.niksplay.moviesland.adapter.item.IListItem;
 import com.niksplay.moviesland.adapter.item.ItemLabel;
@@ -165,7 +167,7 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
 
             if (!ArrayUtils.isEmpty(mMediaDetailInfo.reviews)) {
                 for (Review review : mMediaDetailInfo.reviews) {
-                    items.add(new ItemReview(review));
+                    items.add(new ItemReview(review, mReviewSelectedListener));
                 }
             }
         }else if(mLoading){
@@ -186,6 +188,13 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
         @Override
         public void onItemSelected(Credit credit) {
             startActivity(PersonActivity.createIntent(getActivity(), credit.createPerson()));
+        }
+    };
+
+    private MediaReviewHolder.OnItemSelectedListener mReviewSelectedListener = new MediaReviewHolder.OnItemSelectedListener() {
+        @Override
+        public void onItemSelectedClick(Review review) {
+            startActivity(ReviewActivity.createIntent(getActivity(), review));
         }
     };
 

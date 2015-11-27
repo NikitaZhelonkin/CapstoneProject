@@ -68,6 +68,10 @@
             android:name=".activity.PersonActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".activity.ReviewActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <provider
             android:name="com.niksplay.moviesland.provider.MediaProvider"
             android:authorities="com.niksplay.moviesland.provider"

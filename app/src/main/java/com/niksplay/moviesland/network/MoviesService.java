@@ -25,8 +25,7 @@ import retrofit.http.QueryMap;
  */
 public interface MoviesService {
 
-    String API_KEY = "cee3889329734d105d1af14dfe7e17a4";
-
+    String API_KEY = ""; //MoviesDB API KEY
     String API_URL = "http://api.themoviedb.org/3/";
     String IMAGES_URL = "http://image.tmdb.org/t/p/";
 

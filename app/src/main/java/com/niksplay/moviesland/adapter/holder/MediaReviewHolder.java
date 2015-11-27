@@ -16,23 +16,37 @@ import butterknife.ButterKnife;
  */
 public class MediaReviewHolder extends AbsViewHolder {
 
+    public interface OnItemSelectedListener {
+        void onItemSelectedClick(Review review);
+    }
+
     @Bind(R.id.author_view)
     TextView mAuthorView;
     @Bind(R.id.content_view)
     TextView mContentView;
 
+    private OnItemSelectedListener mOnItemSelectedListener;
 
-    public MediaReviewHolder(View itemView) {
+    public MediaReviewHolder(View itemView, OnItemSelectedListener listener) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        mOnItemSelectedListener = listener;
     }
 
     @Override
     public void bind(IListItem iListItem) {
-        if(iListItem instanceof ItemReview){
-            Review review = ((ItemReview) iListItem).getItemData();
+        if (iListItem instanceof ItemReview) {
+            final Review review = ((ItemReview) iListItem).getItemData();
             mAuthorView.setText(review.author);
             mContentView.setText(review.content);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mOnItemSelectedListener != null) {
+                        mOnItemSelectedListener.onItemSelectedClick(review);
+                    }
+                }
+            });
         }
     }
 }

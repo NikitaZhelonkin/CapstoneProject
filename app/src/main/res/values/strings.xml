@@ -16,6 +16,7 @@
     <string name="title_catalog">Catalog</string>
     <string name="title_search">Search</string>
     <string name="title_detail">Detail</string>
+    <string name="title_review">Review</string>
 
     <string name="label_persons">Actors</string>
     <string name="label_similar">Similar</string>
@@ -42,5 +43,8 @@
     <string name="known_for">Known for: %s</string>
 
     <string name="empty_text">No results</string>
+
+    <string name="provide_api_key">Provide MoviesDB API KEY in MoviesService class</string>
+    <string name="ok">OK</string>
 
 </resources>
