@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class MediaDetailInfo {
 
+
     public IMedia media;
     public ImagesResponse images;
     public List<Review> reviews;

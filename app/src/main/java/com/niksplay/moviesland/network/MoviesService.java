@@ -1,5 +1,6 @@
 package com.niksplay.moviesland.network;
 
+import com.niksplay.moviesland.model.Media;
 import com.niksplay.moviesland.model.Movie;
 import com.niksplay.moviesland.model.Person;
 import com.niksplay.moviesland.model.PersonDetailInfo;
@@ -42,7 +43,7 @@ public interface MoviesService {
     Call<GenresResponse> genresList(@Path("type") String type);
 
     @GET("movie/{id}")
-    Call<Movie> getMovie(@Path("id") long id);
+    Call<Movie> getMovie(@Path("id") long id, @Query("append_to_response") String appendToResponse);
 
     @GET("{type}/{id}/images")
     Call<ImagesResponse> getImages(@Path("type") String type, @Path("id") long id);
@@ -69,7 +70,7 @@ public interface MoviesService {
     Call<PagedResponse<Movie>> moviesUpcoming(@Query("page") int page);
 
     @GET("tv/{id}")
-    Call<TV> getTV(@Path("id") long id);
+    Call<TV> getTV(@Path("id") long id, @Query("append_to_response") String appendToResponse);
 
     @GET("tv/{id}/similar")
     Call<PagedResponse<TV>> getTVSimilar(@Path("id") long id);
@@ -103,6 +104,9 @@ public interface MoviesService {
 
     @GET("search/person")
     Call<PagedResponse<Person>> searchPerson(@Query("query") String query, @Query("page") int page);
+
+    @GET("search/multi")
+    Call<PagedResponse<Media>> search(@Query("query") String query, @Query("page") int page);
 
 
 }

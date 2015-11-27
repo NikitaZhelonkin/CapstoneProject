@@ -6,10 +6,10 @@
     android:paddingTop="8dp"
     android:background="@android:color/white"
     android:elevation="2dp"
-    android:paddingLeft="@dimen/detail_inner_horiz_margin"
+    android:paddingLeft="@dimen/detail_inner_horiz_padding"
     android:layout_marginLeft="@dimen/list_detail_side_margin"
     android:layout_marginRight="@dimen/list_detail_side_margin"
-    android:paddingRight="@dimen/detail_inner_horiz_margin">
+    android:paddingRight="@dimen/detail_inner_horiz_padding">
 
 
     <ImageView

@@ -64,6 +64,7 @@ public class WatchlistFragment extends NavigationListFragment<IMedia>{
     public void onLoadFinished(Loader<List<IMedia>> loader, List<IMedia> data) {
         super.onLoadFinished(loader, data);
         mAdapter.setData(data);
+        mEmptyView.setVisibility(mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
     private ContentObserver mContentObserver = new SimpleObserver() {

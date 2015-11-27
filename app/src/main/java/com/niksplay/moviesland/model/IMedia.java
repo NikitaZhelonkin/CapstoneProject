@@ -3,6 +3,8 @@ package com.niksplay.moviesland.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.niksplay.moviesland.model.response.VideosResponse;
+
 /**
  * Created by nikita on 16.11.15.
  */
@@ -41,6 +43,8 @@ public interface IMedia extends Parcelable {
 
     String getPosterPath();
 
+    String getHomePage();
+
     float getPopularity();
 
     boolean isVideo();
@@ -48,6 +52,8 @@ public interface IMedia extends Parcelable {
     float getVoteAverage();
 
     int getVoteCount();
+
+    VideosResponse getVideos();
 
     Type getType();
 

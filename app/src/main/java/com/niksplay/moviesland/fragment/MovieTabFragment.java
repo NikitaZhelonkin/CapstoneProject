@@ -5,11 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
 import android.view.View;
 
-import com.niksplay.moviesland.activity.MediaDetailActivity;
 import com.niksplay.moviesland.adapter.MediaAdapter;
 import com.niksplay.moviesland.adapter.MediaSelectedListener;
 import com.niksplay.moviesland.app.App;
-import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.model.Movie;
 import com.niksplay.moviesland.model.response.PagedResponse;
 
@@ -93,6 +91,7 @@ public class MovieTabFragment extends PagingListFragment<Movie> {
         if (data != null) {
             mAdapter.addAll(data.getResults());
         }
+        mEmptyView.setVisibility(mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
     @Override

@@ -11,6 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
+    <include layout="@layout/layout_empty_view" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:padding="@dimen/list_item_margin"

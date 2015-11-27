@@ -35,11 +35,26 @@
         </activity>
 
         <activity
-            android:name=".activity.SearchActivity"
+            android:name=".activity.MediaSearchActivity"
             android:label="@string/title_search"
             android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            tools:ignore="UnusedAttribute">
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="UnusedAttribute"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".activity.PersonSearchActivity"
+            android:label="@string/title_search"
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
+            tools:ignore="UnusedAttribute"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />

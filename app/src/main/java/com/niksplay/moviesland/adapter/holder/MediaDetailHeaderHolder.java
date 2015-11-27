@@ -1,17 +1,22 @@
 package com.niksplay.moviesland.adapter.holder;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.niksplay.moviesland.Constants;
 import com.niksplay.moviesland.R;
 import com.niksplay.moviesland.adapter.item.IListItem;
 import com.niksplay.moviesland.adapter.item.ItemMediaDetailHeader;
 import com.niksplay.moviesland.managers.FavoriteManager;
 import com.niksplay.moviesland.managers.WatchlistManager;
 import com.niksplay.moviesland.model.IMedia;
+import com.niksplay.moviesland.model.Video;
+import com.niksplay.moviesland.model.response.VideosResponse;
 import com.niksplay.moviesland.utils.ImageUrls;
 import com.niksplay.moviesland.utils.Utils;
 import com.squareup.picasso.Picasso;
@@ -29,24 +34,16 @@ public class MediaDetailHeaderHolder extends AbsViewHolder{
         void onWatchlistClick();
     }
 
-    @Bind(R.id.movie_title)
-    TextView movieTitle;
-    @Bind(R.id.movie_year)
-    TextView yearView;
-    @Bind(R.id.movie_rate)
-    TextView ratingView;
-    @Bind(R.id.movie_description)
-    TextView descriptionView;
-    @Bind(R.id.movie_thumbnail)
-    ImageView movieImage;
-    @Bind(R.id.movie_genres)
-    TextView genresView;
-    @Bind(R.id.favorite_btn)
-    Button favoriteButton;
-    @Bind(R.id.watchlist_btn)
-    Button watchlistButton;
-    @Bind(R.id.backdrop_view)
-    ImageView mBackdropView;
+    @Bind(R.id.movie_title)  TextView movieTitle;
+    @Bind(R.id.movie_year) TextView yearView;
+    @Bind(R.id.movie_rate) TextView ratingView;
+    @Bind(R.id.movie_description)TextView descriptionView;
+    @Bind(R.id.movie_thumbnail) ImageView movieImage;
+    @Bind(R.id.movie_genres) TextView genresView;
+    @Bind(R.id.favorite_btn) Button favoriteButton;
+    @Bind(R.id.watchlist_btn)  Button watchlistButton;
+    @Bind(R.id.backdrop_image_view) ImageView mBackdropImageView;
+    @Bind(R.id.trailer_btn) View trailerButton;
 
     Context mContext;
 
@@ -62,7 +59,6 @@ public class MediaDetailHeaderHolder extends AbsViewHolder{
     @Override
     public void bind(IListItem iListItem) {
         if(iListItem instanceof ItemMediaDetailHeader){
-
             IMedia media =   ((ItemMediaDetailHeader) iListItem).getItemData();
             int year = Utils.getYear(media.getReleaseDate());
             movieTitle.setText(media.getTitle());
@@ -94,9 +90,43 @@ public class MediaDetailHeaderHolder extends AbsViewHolder{
                     }
                 }
             });
+            final Video trailer = getTrailer(media);
+            setVisibility(trailerButton, trailer == null ? View.GONE : View.VISIBLE, true);
+            trailerButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (trailer != null) {
+                        mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(trailer.getUrl())));
+                    }
+                }
+            });
 
-            Picasso.with(mContext).load(ImageUrls.getBackdropUrl(media.getBackdropPath())).into(mBackdropView);
+            Picasso.with(mContext).load(ImageUrls.getBackdropUrl(media.getBackdropPath())).into(mBackdropImageView);
+        }
+    }
 
+    private Video getTrailer(IMedia media) {
+        VideosResponse videosResponse = media.getVideos();
+        if (videosResponse == null || videosResponse.getResults() == null) {
+            return null;
+        }
+        for (Video video : videosResponse.getResults()) {
+            if (video.type.equals(Constants.VIDEO_TYPE_TRAILER)) {
+                return video;
+            }
+        }
+        return null;
+    }
+
+    private void setVisibility(View v, int visibility, boolean animateShow) {
+        int lastVisibility = v.getVisibility();
+        if (lastVisibility == visibility) {
+            return;
+        }
+        v.setVisibility(visibility);
+        if (animateShow && lastVisibility != View.VISIBLE) {
+            v.setAlpha(0);
+            v.animate().alpha(1).setDuration(200).start();
         }
     }
 }

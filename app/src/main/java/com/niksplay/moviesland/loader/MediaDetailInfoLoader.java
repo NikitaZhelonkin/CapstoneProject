@@ -2,8 +2,9 @@ package com.niksplay.moviesland.loader;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
+import android.text.TextUtils;
 
+import com.niksplay.moviesland.Constants;
 import com.niksplay.moviesland.app.App;
 import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.model.MediaDetailInfo;
@@ -38,8 +39,8 @@ public class MediaDetailInfoLoader extends AsyncTaskLoader<MediaDetailInfo> {
             MediaDetailInfo detailInfo = new MediaDetailInfo();
 
             if (mMedia.getType() == IMedia.Type.MOVIE) {
-                Response<Movie>  movieResponse = moviesService.getMovie(mMedia.getId()).execute();
-                if(movieResponse.isSuccess()){
+                Response<Movie> movieResponse = moviesService.getMovie(mMedia.getId(), Constants.PARAM_VIDEOS).execute();
+                if (movieResponse.isSuccess()) {
                     detailInfo.media = movieResponse.body();
                 }
                 Response<PagedResponse<Movie>> movieRelatedResponse = moviesService.getMovieSimilar(mMedia.getId()).execute();
@@ -47,7 +48,7 @@ public class MediaDetailInfoLoader extends AsyncTaskLoader<MediaDetailInfo> {
                     detailInfo.relatedMedia = movieRelatedResponse.body().getResults();
                 }
             } else {
-                Response<TV>  tvResponse = moviesService.getTV(mMedia.getId()).execute();
+                Response<TV>  tvResponse = moviesService.getTV(mMedia.getId(), Constants.PARAM_VIDEOS).execute();
                 if(tvResponse.isSuccess()){
                     detailInfo.media = tvResponse.body();
                 }

@@ -23,7 +23,6 @@ public class DoublerView extends LinearLayout {
         init(context, layoutId, count);
     }
 
-
     public DoublerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
@@ -42,7 +41,7 @@ public class DoublerView extends LinearLayout {
 
 
     private void init(Context context, AttributeSet attrs){
-        if(attrs==null){
+        if(attrs == null){
             throw new IllegalArgumentException("No layoutId, count attrs provided");
         }
 

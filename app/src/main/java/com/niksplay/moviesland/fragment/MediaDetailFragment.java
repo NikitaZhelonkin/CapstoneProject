@@ -24,6 +24,7 @@ import com.niksplay.moviesland.adapter.holder.MediaDetailHeaderHolder;
 import com.niksplay.moviesland.adapter.holder.MediasPagerHolder;
 import com.niksplay.moviesland.adapter.item.IListItem;
 import com.niksplay.moviesland.adapter.item.ItemLabel;
+import com.niksplay.moviesland.adapter.item.ItemLoader;
 import com.niksplay.moviesland.adapter.item.ItemMediaDetailHeader;
 import com.niksplay.moviesland.adapter.item.ItemMediaImages;
 import com.niksplay.moviesland.adapter.item.ItemPagerCredits;
@@ -54,13 +55,15 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
 
     private static final String EXTRA_MEDIA = "extra_media";
 
+    @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
+
     private IMedia mMedia;
 
     private MediaDetailInfo mMediaDetailInfo;
 
     private RecyclerItemsAdapter mAdapter;
 
-    @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
+    private boolean mLoading;
 
 
     public static MediaDetailFragment create(IMedia movie) {
@@ -94,6 +97,8 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
+        mLoading = true;
+
         getActivity().setTitle(mMedia.getTitle());
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -122,6 +127,7 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public void onLoadFinished(Loader<MediaDetailInfo> loader, MediaDetailInfo data) {
+        mLoading = false;
         mMedia = data != null ? data.media : mMedia;
         mMediaDetailInfo = data;
         invalidate();
@@ -130,6 +136,10 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
     @Override
     public void onLoaderReset(Loader<MediaDetailInfo> loader) {
         //do nothing
+    }
+
+    public IMedia getMedia(){
+        return mMedia;
     }
 
     private void invalidate() {
@@ -158,6 +168,8 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
                     items.add(new ItemReview(review));
                 }
             }
+        }else if(mLoading){
+            items.add(new ItemLoader());
         }
 
         mAdapter.setData(items);

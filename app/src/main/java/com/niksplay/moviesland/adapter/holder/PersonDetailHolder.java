@@ -20,16 +20,11 @@ import butterknife.ButterKnife;
  */
 public class PersonDetailHolder extends AbsViewHolder {
 
-    @Bind(R.id.person_thumbnail)
-    ImageView mImageView;
-    @Bind(R.id.person_name)
-    TextView mNameView;
-    @Bind(R.id.person_date_of_birth)
-    TextView mBirthDateView;
-    @Bind(R.id.person_place_of_birth)
-    TextView mBirthPlaceView;
-    @Bind(R.id.person_description)
-    TextView mBiographyView;
+    @Bind(R.id.person_thumbnail)  ImageView mImageView;
+    @Bind(R.id.person_name) TextView mNameView;
+    @Bind(R.id.person_date_of_birth) TextView mBirthDateView;
+    @Bind(R.id.person_place_of_birth) TextView mBirthPlaceView;
+    @Bind(R.id.person_description) TextView mBiographyView;
 
     public PersonDetailHolder(View itemView) {
         super(itemView);

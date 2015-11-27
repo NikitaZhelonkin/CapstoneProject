@@ -42,6 +42,13 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHold
         notifyDataSetChanged();
     }
 
+    public void clear() {
+        if (mData != null) {
+            mData.clear();
+            notifyDataSetChanged();
+        }
+    }
+
     public void setItemSelectedListener(OnItemSelectedListener l){
         mItemSelectedListener = l;
     }

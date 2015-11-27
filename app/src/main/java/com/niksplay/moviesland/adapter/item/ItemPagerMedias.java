@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.niksplay.moviesland.R;
-import com.niksplay.moviesland.adapter.MediaAdapter;
 import com.niksplay.moviesland.adapter.holder.AbsViewHolder;
 import com.niksplay.moviesland.adapter.holder.MediasPagerHolder;
 import com.niksplay.moviesland.model.IMedia;
@@ -27,6 +26,6 @@ public class ItemPagerMedias extends SimpleItem<List<? extends IMedia>> {
 
     @Override
     public AbsViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent) {
-        return new MediasPagerHolder(inflater.inflate(R.layout.list_item_medias, parent, false),mCount, mItemSelectedListener);
+        return new MediasPagerHolder(inflater.inflate(R.layout.list_item_pager_medias, parent, false),mCount, mItemSelectedListener);
     }
 }

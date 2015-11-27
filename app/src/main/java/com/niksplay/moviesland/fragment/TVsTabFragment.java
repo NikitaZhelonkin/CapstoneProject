@@ -90,5 +90,6 @@ public class TVsTabFragment extends PagingListFragment<TV>{
         if (data != null) {
             mAdapter.addAll(data.getResults());
         }
+        mEmptyView.setVisibility(mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 }

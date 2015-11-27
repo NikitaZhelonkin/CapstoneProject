@@ -1,8 +1,12 @@
 package com.niksplay.moviesland.utils;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
+import com.niksplay.moviesland.app.App;
 import com.niksplay.moviesland.managers.Genres;
 import com.niksplay.moviesland.model.Genre;
 import com.niksplay.moviesland.model.IMedia;
@@ -62,6 +66,11 @@ public class Utils {
         }else{
             return "";
         }
+    }
+
+    public static void showKeyboard(EditText inputView) {
+        InputMethodManager imm = (InputMethodManager) App.getInstance().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(inputView, InputMethodManager.SHOW_FORCED);
     }
 
     public static float progress(float v, float min, float max) {

@@ -12,12 +12,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.niksplay.moviesland.R;
+import com.niksplay.moviesland.activity.MediaSearchActivity;
 import com.niksplay.moviesland.activity.PersonActivity;
+import com.niksplay.moviesland.activity.PersonSearchActivity;
 import com.niksplay.moviesland.adapter.PersonsAdapter;
 import com.niksplay.moviesland.app.App;
 import com.niksplay.moviesland.model.Person;
@@ -38,11 +41,9 @@ import retrofit.Response;
 public class PersonsFragment extends NavigationFragment
         implements LoaderManager.LoaderCallbacks<PagedResponse<Person>>, PersonsAdapter.OnItemSelectedListener {
 
-    @Bind(R.id.recycler_view)
-    RecyclerView mRecyclerView;
-
-    @Bind(R.id.progress_bar)
-    ProgressBar mProgressBar;
+    @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
+    @Bind(R.id.progress_bar) ProgressBar mProgressBar;
+    @Bind(R.id.empty_view) View mEmptyView;
 
     private int mPage;
 
@@ -103,6 +104,16 @@ public class PersonsFragment extends NavigationFragment
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_search:
+                getActivity().startActivity(new Intent(getActivity(), PersonSearchActivity.class));
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onItemSelected(Person person) {
         startActivity(PersonActivity.createIntent(getActivity(), person));
     }
@@ -142,7 +153,7 @@ public class PersonsFragment extends NavigationFragment
             mPage = data.getPage();
             mAdapter.addAll(data.getResults());
         }
-
+        mEmptyView.setVisibility(mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
     @Override

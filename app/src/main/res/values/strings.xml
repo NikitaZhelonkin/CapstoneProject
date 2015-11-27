@@ -40,4 +40,7 @@
     <string name="from_watchlist">From Watchlist</string>
 
     <string name="known_for">Known for: %s</string>
+
+    <string name="empty_text">No results</string>
+
 </resources>

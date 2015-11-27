@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_movies" android:icon="@android:drawable/ic_menu_slideshow"
+        <item android:id="@+id/nav_movies" android:icon="@drawable/ic_nav_movie"
             android:title="@string/title_movies" />
-        <item android:id="@+id/nav_tvs" android:icon="@android:drawable/ic_menu_slideshow"
+        <item android:id="@+id/nav_tvs" android:icon="@drawable/ic_nav_tvs"
             android:title="@string/title_tvs" />
-        <item android:id="@+id/nav_actors" android:icon="@android:drawable/ic_menu_slideshow"
+        <item android:id="@+id/nav_actors" android:icon="@drawable/ic_nav_persons"
             android:title="@string/title_persons" />
-        <item android:id="@+id/nav_favorite" android:icon="@android:drawable/ic_menu_slideshow"
+        <item android:id="@+id/nav_favorite" android:icon="@drawable/ic_nav_favorite"
             android:title="@string/title_favorite" />
-        <item android:id="@+id/nav_watchlist" android:icon="@android:drawable/ic_menu_slideshow"
+        <item android:id="@+id/nav_watchlist" android:icon="@drawable/ic_nav_watchlist"
             android:title="@string/title_watchlist" />
     </group>
 

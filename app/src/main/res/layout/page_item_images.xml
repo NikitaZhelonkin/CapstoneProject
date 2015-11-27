@@ -8,4 +8,5 @@
     android:layout_marginBottom="4dp"
     app:count="@integer/pager_items_count"
     app:layoutId="@layout/page_item_image"
-    android:padding="4dp" />
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"/>

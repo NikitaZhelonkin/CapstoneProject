@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="detail_inner_horiz_margin">120dp</dimen>
-
+    <dimen name="detail_inner_horiz_padding">120dp</dimen>
+    <!--detail_inner_horiz_margin - 4dp-->
+    <dimen name="detail_inner_images_horiz_padding">116dp</dimen>
 
 </resources>

@@ -2,19 +2,11 @@ package com.niksplay.moviesland.fragment;
 
 import android.database.ContentObserver;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.niksplay.moviesland.R;
-import com.niksplay.moviesland.activity.MediaDetailActivity;
 import com.niksplay.moviesland.adapter.MediaAdapter;
 import com.niksplay.moviesland.adapter.MediaSelectedListener;
 import com.niksplay.moviesland.managers.FavoriteManager;
@@ -23,8 +15,6 @@ import com.niksplay.moviesland.provider.SimpleObserver;
 import com.niksplay.moviesland.provider.favorite.FavoriteColumns;
 
 import java.util.List;
-
-import butterknife.Bind;
 
 /**
  * Created by nikita on 15.11.15.
@@ -68,6 +58,7 @@ public class FavoriteFragment extends NavigationListFragment<IMedia> {
     public void onLoadFinished(Loader<List<IMedia>> loader, List<IMedia> data) {
         super.onLoadFinished(loader, data);
         mAdapter.setData(data);
+        mEmptyView.setVisibility(mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
     private ContentObserver mContentObserver = new SimpleObserver() {

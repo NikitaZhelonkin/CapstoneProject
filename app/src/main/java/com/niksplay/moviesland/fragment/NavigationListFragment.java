@@ -23,10 +23,9 @@ import butterknife.ButterKnife;
  */
 public abstract class NavigationListFragment<T> extends NavigationFragment implements LoaderManager.LoaderCallbacks<List<T>> {
 
-    @Bind(R.id.recycler_view)
-    RecyclerView mRecyclerView;
-    @Bind(R.id.progress_bar)
-    ProgressBar mProgressBar;
+    @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
+    @Bind(R.id.progress_bar) ProgressBar mProgressBar;
+    @Bind(R.id.empty_view) View mEmptyView;
 
 
     @Override

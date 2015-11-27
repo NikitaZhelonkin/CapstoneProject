@@ -11,9 +11,9 @@ import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowInsets;
 
 import com.niksplay.moviesland.R;
@@ -96,16 +96,23 @@ public class CoordinatorLayout extends DrawInsetsFrameLayout {
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
-                    mScrollY += dy;
+                    mScrollY = recyclerView.computeVerticalScrollOffset();
                     updateStatusBar();
                     updateToolbarPosition();
                 }
             });
-            updateStatusBar();
-            updateToolbarPosition();
+            mRecyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    mRecyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
+                    updateStatusBar();
+                    updateToolbarPosition();
+                    return false;
+                }
+            });
+
         }
     }
-
 
     private void updateStatusBar() {
         int color = 0;
@@ -129,60 +136,13 @@ public class CoordinatorLayout extends DrawInsetsFrameLayout {
         if (mRecyclerView == null) {
             return;
         }
-        float trans = mStatusBarFullOpacityBottom - mToolbarHeight  - mScrollY;
-        mToolbar.setTranslationY(Math.min(trans, mTopInset));
-    }
-
-
-
-    @Override
-    public Parcelable onSaveInstanceState() {
-        Parcelable superState = super.onSaveInstanceState();
-        SavedState ss = new SavedState(superState);
-        ss.scrollY = mScrollY;
-        return ss;
-    }
-
-    @Override
-    public void onRestoreInstanceState(Parcelable state) {
-        if (!(state instanceof SavedState)) {
-            super.onRestoreInstanceState(state);
-            return;
+        View backdropView = mRecyclerView.findViewById(R.id.backdrop_view);
+        if (backdropView != null) {
+            float trans = mStatusBarFullOpacityBottom - mToolbarHeight - mScrollY;
+            mToolbar.setTranslationY(Math.min(trans, mTopInset));
+        }else{
+            mToolbar.setTranslationY(-mToolbarHeight);
         }
-
-        SavedState ss = (SavedState) state;
-        super.onRestoreInstanceState(ss.getSuperState());
-        mScrollY = ss.scrollY;
-    }
-
-
-    static class SavedState extends BaseSavedState {
-        int scrollY;
-
-        SavedState(Parcelable superState) {
-            super(superState);
-        }
-
-        private SavedState(Parcel in) {
-            super(in);
-            scrollY = in.readInt();
-        }
-
-        @Override
-        public void writeToParcel(Parcel out, int flags) {
-            super.writeToParcel(out, flags);
-            out.writeInt(scrollY);
-        }
-
-        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
-                    public SavedState createFromParcel(Parcel in) {
-                        return new SavedState(in);
-                    }
-
-                    public SavedState[] newArray(int size) {
-                        return new SavedState[size];
-                    }
-                };
     }
 
 }

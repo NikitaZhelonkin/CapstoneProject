@@ -6,23 +6,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.niksplay.moviesland.R;
 import com.niksplay.moviesland.fragment.MediaDetailFragment;
 import com.niksplay.moviesland.model.IMedia;
-import com.niksplay.moviesland.model.Movie;
-import com.niksplay.moviesland.utils.ImageUrls;
-import com.squareup.picasso.Picasso;
 
 /**
  * Created by nikita on 19.11.15.
  */
 public class MediaDetailActivity extends AppCompatActivity {
 
+    private static final String SHARE_TYPE = "text/plain";
     private static final String EXTRA_MEDIA = "extra_media";
 
     public static Intent createIntent(Context context, IMedia media){
@@ -69,6 +66,20 @@ public class MediaDetailActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onShareClick(View view) {
+        MediaDetailFragment detailFragment = (MediaDetailFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (detailFragment != null) {
+            IMedia media = detailFragment.getMedia();
+            if (media != null && !TextUtils.isEmpty(media.getHomePage())) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, media.getHomePage());
+                sendIntent.setType(SHARE_TYPE);
+                startActivity(sendIntent);
+            }
+        }
     }
 
 }
