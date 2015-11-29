@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -118,7 +119,7 @@ public class MediaDetailFragment extends Fragment implements LoaderManager.Loade
 
 
         CoordinatorLayout coordinatorLayout = (CoordinatorLayout) getActivity().findViewById(R.id.coordinator_layout);
-        coordinatorLayout.setupViews((Toolbar)getActivity().findViewById(R.id.toolbar), mRecyclerView);
+        coordinatorLayout.setupViews((AppBarLayout)getActivity().findViewById(R.id.app_bar), mRecyclerView);
         invalidate();
     }
 

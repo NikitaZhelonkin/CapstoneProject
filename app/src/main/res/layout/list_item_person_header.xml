@@ -7,16 +7,21 @@
     android:background="@android:color/white"
     android:elevation="2dp"
     android:paddingLeft="@dimen/detail_inner_horiz_padding"
+    android:paddingStart="@dimen/detail_inner_horiz_padding"
+    android:paddingRight="@dimen/detail_inner_horiz_padding"
+    android:paddingEnd="@dimen/detail_inner_horiz_padding"
     android:layout_marginLeft="@dimen/list_detail_side_margin"
+    android:layout_marginStart="@dimen/list_detail_side_margin"
     android:layout_marginRight="@dimen/list_detail_side_margin"
-    android:paddingRight="@dimen/detail_inner_horiz_padding">
+    android:layout_marginEnd="@dimen/list_detail_side_margin"
+    >
 
 
     <ImageView
         android:id="@+id/person_thumbnail"
         android:layout_width="@dimen/list_item_image_width"
         android:layout_height="@dimen/list_item_person_image_height"
-        android:background="#cccc"
+        android:background="@color/gray_alpha"
         android:contentDescription="@null"
         android:scaleType="centerCrop" />
 
@@ -28,8 +33,10 @@
         android:layout_toRightOf="@id/person_thumbnail"
         android:ellipsize="end"
         android:maxLines="2"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        android:paddingStart="@dimen/content_padding"
+        android:paddingLeft="@dimen/content_padding"
+        android:paddingEnd="@dimen/content_padding"
+        android:paddingRight="@dimen/content_padding"
         android:textColor="@android:color/black"
         tools:text="Person Name" />
 
@@ -39,13 +46,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/person_name"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/content_padding"
         android:layout_toRightOf="@+id/person_thumbnail"
         android:ellipsize="end"
         android:maxLines="2"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:textColor="#6000"
+        android:paddingStart="@dimen/content_padding"
+        android:paddingLeft="@dimen/content_padding"
+        android:paddingEnd="@dimen/content_padding"
+        android:paddingRight="@dimen/content_padding"
+        android:textColor="@color/text_color_gray"
         tools:text="01/05/2015" />
 
 
@@ -57,11 +66,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/person_date_of_birth"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/content_padding"
         android:layout_toRightOf="@id/person_thumbnail"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:textColor="#6000"
+        android:paddingStart="@dimen/content_padding"
+        android:paddingLeft="@dimen/content_padding"
+        android:paddingEnd="@dimen/content_padding"
+        android:paddingRight="@dimen/content_padding"
+        android:textColor="@color/text_color_gray"
         tools:text="London, England" />
 
 

@@ -8,27 +8,29 @@
     <FrameLayout
         android:id="@+id/backdrop_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/content_desc_trailer"
+        android:foreground="?selectableItemBackground">
 
         <ImageView
             android:id="@+id/backdrop_image_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/detail_backdrop_height"
-            android:background="#ccc"
+            android:background="@color/gray"
             android:contentDescription="@null"
             android:scaleType="centerCrop" />
 
         <ImageButton
             android:id="@+id/trailer_btn"
-            android:contentDescription="@null"
+            android:contentDescription="@string/content_desc_trailer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_play_arrow"
             android:layout_gravity="center"
-            android:padding="8dp"
+            android:clickable="false"
+            android:padding="@dimen/content_padding"
             android:layout_marginBottom="@dimen/play_button_bottom_margin"
-            android:foreground="?selectableItemBackgroundBorderless"
-            android:background="@drawable/bg_play_btn"/>
+            android:background="@drawable/bg_play_btn" />
 
     </FrameLayout>
 

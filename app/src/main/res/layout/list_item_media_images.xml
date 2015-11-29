@@ -2,19 +2,23 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/list_detail_side_margin"
+    android:layout_marginEnd="@dimen/list_detail_side_margin"
     android:layout_marginLeft="@dimen/list_detail_side_margin"
     android:layout_marginRight="@dimen/list_detail_side_margin"
     android:background="@android:color/white"
     android:elevation="2dp"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp">
+    android:paddingBottom="@dimen/content_padding"
+    android:paddingTop="@dimen/content_padding">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_images"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_item_backdrop_image_height"
         android:clipToPadding="false"
+        android:paddingStart="@dimen/detail_inner_images_horiz_padding"
         android:paddingLeft="@dimen/detail_inner_images_horiz_padding"
+        android:paddingEnd="@dimen/detail_inner_images_horiz_padding"
         android:paddingRight="@dimen/detail_inner_images_horiz_padding"
         />
 

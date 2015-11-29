@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
@@ -29,7 +30,7 @@ public class CoordinatorLayout extends DrawInsetsFrameLayout {
     private int mTopInset;
     private int mStatusBarFullOpacityBottom;
     private int mToolbarHeight;
-    private Toolbar mToolbar;
+    private AppBarLayout mAppBar;
     private RecyclerView mRecyclerView;
     private int mScrollY;
 
@@ -70,16 +71,17 @@ public class CoordinatorLayout extends DrawInsetsFrameLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        setupViews(toolbar, recyclerView);
+        setupViews(appBarLayout, recyclerView);
     }
 
-    public void setupViews(Toolbar toolbar, RecyclerView recyclerView) {
-        mToolbar = toolbar;
+    public void setupViews(AppBarLayout appBarLayout, RecyclerView recyclerView) {
+        mAppBar = appBarLayout;
         mRecyclerView = recyclerView;
-        if (mToolbar != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mToolbar.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+        if (mAppBar != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mAppBar.setElevation(0);
+            mAppBar.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
                 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public WindowInsets onApplyWindowInsets(View view, WindowInsets windowInsets) {
@@ -91,7 +93,8 @@ public class CoordinatorLayout extends DrawInsetsFrameLayout {
                 }
             });
         }
-        if (mRecyclerView != null && mToolbar != null) {
+        if (mRecyclerView != null && mAppBar != null) {
+            mAppBar.setBackgroundColor(Color.TRANSPARENT);
             mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -139,9 +142,9 @@ public class CoordinatorLayout extends DrawInsetsFrameLayout {
         View backdropView = mRecyclerView.findViewById(R.id.backdrop_view);
         if (backdropView != null) {
             float trans = mStatusBarFullOpacityBottom - mToolbarHeight - mScrollY;
-            mToolbar.setTranslationY(Math.min(trans, mTopInset));
+            mAppBar.setTranslationY(Math.min(trans, mTopInset));
         }else{
-            mToolbar.setTranslationY(-mToolbarHeight);
+            mAppBar.setTranslationY(-mToolbarHeight);
         }
     }
 

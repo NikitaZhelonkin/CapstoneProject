@@ -6,6 +6,8 @@
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
     android:layout_marginLeft="@dimen/filter_side_margin"
+    android:layout_marginStart="@dimen/filter_side_margin"
+    android:layout_marginEnd="@dimen/filter_side_margin"
     android:layout_marginRight="@dimen/filter_side_margin"
     >
 
@@ -13,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-
         android:padding="8dp">
 
         <Spinner

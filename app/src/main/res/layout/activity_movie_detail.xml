@@ -11,21 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+    <include layout="@layout/app_bar_base"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:clickable="true"
         android:onClick="onShareClick"
         android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/content_desc_share"
         android:src="@drawable/ic_action_share" />
 
 </com.niksplay.moviesland.widget.CoordinatorLayout>

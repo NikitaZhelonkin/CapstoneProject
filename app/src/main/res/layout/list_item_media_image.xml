@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/image_view"
     android:layout_width="wrap_content"
-    android:background="#cccc"
-    android:layout_margin="4dp"
+    android:background="@color/gray_alpha"
+    android:layout_margin="@dimen/content_padding_half"
     android:layout_height="@dimen/list_item_backdrop_image_height"
     android:contentDescription="@null" />

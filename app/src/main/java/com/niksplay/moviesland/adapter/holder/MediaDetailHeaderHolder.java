@@ -42,6 +42,7 @@ public class MediaDetailHeaderHolder extends AbsViewHolder{
     @Bind(R.id.movie_genres) TextView genresView;
     @Bind(R.id.favorite_btn) Button favoriteButton;
     @Bind(R.id.watchlist_btn)  Button watchlistButton;
+    @Bind(R.id.backdrop_view) View mBackdropView;
     @Bind(R.id.backdrop_image_view) ImageView mBackdropImageView;
     @Bind(R.id.trailer_btn) View trailerButton;
 
@@ -92,14 +93,17 @@ public class MediaDetailHeaderHolder extends AbsViewHolder{
             });
             final Video trailer = getTrailer(media);
             setVisibility(trailerButton, trailer == null ? View.GONE : View.VISIBLE, true);
-            trailerButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (trailer != null) {
+            if (trailer == null) {
+                mBackdropView.setOnClickListener(null);
+            } else {
+                mBackdropView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
                         mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(trailer.getUrl())));
                     }
-                }
-            });
+                });
+            }
+
 
             Picasso.with(mContext).load(ImageUrls.getBackdropUrl(media.getBackdropPath())).into(mBackdropImageView);
         }

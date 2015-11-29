@@ -3,13 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/list_detail_side_margin"
     android:layout_marginLeft="@dimen/list_detail_side_margin"
+    android:layout_marginEnd="@dimen/list_detail_side_margin"
     android:layout_marginRight="@dimen/list_detail_side_margin"
     android:layout_marginTop="@dimen/detail_card_top_margin"
     android:background="@android:color/white"
     android:elevation="2dp"
     android:orientation="vertical"
+    android:paddingStart="@dimen/detail_inner_horiz_padding"
     android:paddingLeft="@dimen/detail_inner_horiz_padding"
+    android:paddingEnd="@dimen/detail_inner_horiz_padding"
     android:paddingRight="@dimen/detail_inner_horiz_padding"
     android:paddingTop="@dimen/detail_card_top_padding">
 
@@ -17,7 +21,7 @@
         android:id="@+id/movie_thumbnail"
         android:layout_width="@dimen/list_item_image_width"
         android:layout_height="@dimen/list_item_person_image_height"
-        android:background="#cccc"
+        android:background="@color/gray_alpha"
         android:contentDescription="@null"
         android:scaleType="centerCrop" />
 
@@ -30,8 +34,10 @@
         android:layout_toRightOf="@id/movie_thumbnail"
         android:ellipsize="end"
         android:maxLines="2"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        android:paddingLeft="@dimen/content_padding"
+        android:paddingStart="@dimen/content_padding"
+        android:paddingRight="@dimen/content_padding"
+        android:paddingEnd="@dimen/content_padding"
         android:textColor="@android:color/black"
         tools:text="Title some title" />
 
@@ -41,14 +47,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/movie_title"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/content_padding"
         android:layout_toLeftOf="@+id/movie_year"
         android:layout_toRightOf="@+id/movie_thumbnail"
         android:ellipsize="end"
         android:maxLines="2"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:textColor="#6000"
+        android:paddingEnd="@dimen/content_padding"
+        android:paddingLeft="@dimen/content_padding"
+        android:paddingStart="@dimen/content_padding"
+        android:paddingRight="@dimen/content_padding"
+        android:textColor="@color/text_color_gray"
         tools:text="Horror, furror, criminal" />
 
     <TextView
@@ -58,10 +66,11 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@id/movie_title"
         android:layout_alignParentRight="true"
-        android:drawablePadding="4dp"
+        android:drawablePadding="@dimen/content_padding_half"
         android:drawableRight="@drawable/ic_rate"
-        android:paddingRight="8dp"
-        android:paddingTop="4dp"
+        android:paddingRight="@dimen/content_padding"
+        android:paddingEnd="@dimen/content_padding"
+        android:paddingTop="@dimen/content_padding_half"
         android:textColor="@android:color/black"
         tools:ignore="RtlSymmetry"
         tools:text="6.5" />
@@ -74,12 +83,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/movie_title"
-        android:drawablePadding="4dp"
+        android:drawablePadding="@dimen/content_padding_half"
         android:drawableRight="@drawable/ic_calendar"
         android:gravity="center_vertical"
-        android:paddingRight="8dp"
-        android:paddingTop="8dp"
-        android:textColor="#6000"
+        android:paddingRight="@dimen/content_padding"
+        android:paddingEnd="@dimen/content_padding"
+        android:paddingTop="@dimen/content_padding"
+        android:textColor="@color/text_color_gray"
         tools:ignore="RtlSymmetry"
         tools:text="2015" />
 
@@ -89,11 +99,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/movie_genres"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/content_padding"
         android:layout_toRightOf="@id/movie_thumbnail"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:textColor="#6000"
+        android:paddingLeft="@dimen/content_padding"
+        android:paddingStart="@dimen/content_padding"
+        android:paddingRight="@dimen/content_padding"
+        android:paddingEnd="@dimen/content_padding"
+        android:textColor="@color/text_color_gray"
         tools:text="120 min" />
 
 
@@ -103,9 +115,11 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/movie_thumbnail"
         android:layout_alignBottom="@id/movie_thumbnail"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="@dimen/content_padding"
+        android:layout_marginStart="@dimen/content_padding"
+        android:layout_marginLeft="@dimen/content_padding"
+        android:layout_marginEnd="@dimen/content_padding"
+        android:layout_marginRight="@dimen/content_padding"
         android:orientation="horizontal">
 
         <Button
@@ -113,11 +127,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="?attr/buttonBarButtonStyle"
             tools:text="Favorite" />
+
+        <View
+            android:layout_width="1dp"
+            android:background="#cccc"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_height="match_parent"/>
 
         <Button
             android:id="@+id/watchlist_btn"
             android:layout_width="0dp"
+            style="?attr/buttonBarButtonStyle"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             tools:text="Watchlist" />
@@ -130,8 +153,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout_buttons"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="@dimen/content_padding"
+        android:layout_marginTop="@dimen/content_padding"
         android:textSize="16sp"
         tools:text="Twenty-two years after the events of Jurassic Park, Isla Nublar now features a fully functioning dinosaur theme park, Jurassic World, as originally envisioned by John Hammond." />
 </RelativeLayout>
