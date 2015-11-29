@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ga_trackingId">UA-28747660-3</string>
+    <string name="ga_sampleFrequency">100.0</string>
+    <integer name="ga_sessionTimeout">1800</integer>
+    <bool name="ga_autoActivityTracking">true</bool>
+    <bool name="ga_anonymizeIp">false</bool>
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+
+    <screenName name="com.niksplay.moviesland.activity.MainActivity">Home Screen</screenName>
+    <screenName name="com.niksplay.moviesland.activity.CatalogActivity">Catalog Screen</screenName>
+    <screenName name="com.niksplay.moviesland.activity.MediaDetailActivity">Media Detail Screen</screenName>
+    <screenName name="com.niksplay.moviesland.activity.PersonActivity">Person Detail Screen</screenName>
+    <screenName name="com.niksplay.moviesland.activity.MediaSearchActivity">Media Search Screen</screenName>
+    <screenName name="com.niksplay.moviesland.activity.PersonSearchActivity">Person Search Screen</screenName>
+    <screenName name="com.niksplay.moviesland.activity.ReviewActivity">Review Screen</screenName>
+
+</resources>
