@@ -10,6 +10,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.WindowInsets;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.niksplay.moviesland.R;
 

@@ -12,9 +12,14 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.niksplay.moviesland.R;
 import com.niksplay.moviesland.fragment.MediaDetailFragment;
 import com.niksplay.moviesland.model.IMedia;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by nikita on 19.11.15.
@@ -54,8 +59,6 @@ public class MediaDetailActivity extends AppCompatActivity {
             MediaDetailFragment fragment = MediaDetailFragment.create(media);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
         }
-
-
 
     }
 

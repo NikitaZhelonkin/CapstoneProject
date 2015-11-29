@@ -1,8 +1,5 @@
 package com.niksplay.moviesland.fragment;
 
-import android.graphics.Color;
-import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -11,7 +8,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,9 +37,7 @@ import com.niksplay.moviesland.model.IMedia;
 import com.niksplay.moviesland.model.MediaDetailInfo;
 import com.niksplay.moviesland.model.Review;
 import com.niksplay.moviesland.utils.ArrayUtils;
-import com.niksplay.moviesland.utils.Utils;
 import com.niksplay.moviesland.widget.CoordinatorLayout;
-import com.niksplay.moviesland.widget.DrawInsetsFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;

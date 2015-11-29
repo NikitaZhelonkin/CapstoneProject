@@ -14,6 +14,8 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.niksplay.moviesland.R;
 import com.niksplay.moviesland.fragment.FavoriteFragment;
 import com.niksplay.moviesland.fragment.MoviesFragment;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     @Bind(R.id.nav_view) NavigationView mNavigationView;
     @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @Bind(R.id.tab_layout) TabLayout mTabLayout;
+    @Bind(R.id.adView) AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,9 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             showNavigationFragment(R.id.nav_movies);
         }
+
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.admob_device_id)).build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override
