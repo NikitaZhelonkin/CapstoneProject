@@ -7,6 +7,8 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.niksplay.moviesland.Constants;
 import com.niksplay.moviesland.R;
+import com.niksplay.moviesland.managers.Genres;
+import com.niksplay.moviesland.model.Genre;
 import com.niksplay.moviesland.network.MoviesService;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Interceptor;
@@ -34,11 +36,14 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         sInstance = this;
 
         initGoogleAnalytics();
 
         initMoviesApiClient();
+
+        Genres.loadGenres();
     }
 
     private void initMoviesApiClient() {

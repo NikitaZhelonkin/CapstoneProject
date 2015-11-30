@@ -78,6 +78,27 @@
             android:authorities="com.niksplay.moviesland.provider"
             android:exported="false" />
 
+        <receiver android:name=".appwidget.WidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="com.niksplay.moviesland.appwidget.DATA_UPDATED" />
+                <action android:name="com.niksplay.moviesland.appwidget.ACTION_PREVIOUS" />
+                <action android:name="com.niksplay.moviesland.appwidget.ACTION_NEXT" />
+                <action android:name="com.niksplay.moviesland.appwidget.ACTION_ITEM_CLICK" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_provider" />
+        </receiver>
+
+        <service android:name=".appwidget.WidgetFetchService" />
+
+        <service
+            android:name=".appwidget.FlipWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

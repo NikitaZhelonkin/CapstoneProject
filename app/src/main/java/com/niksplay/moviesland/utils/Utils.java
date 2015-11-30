@@ -1,8 +1,9 @@
 package com.niksplay.moviesland.utils;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -14,7 +15,6 @@ import com.niksplay.moviesland.model.Person;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -66,6 +66,12 @@ public class Utils {
         }else{
             return "";
         }
+    }
+
+    public static boolean isConnected() {
+        ConnectivityManager cm = (ConnectivityManager) App.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork!=null && activeNetwork.isConnectedOrConnecting();
     }
 
     public static void showKeyboard(EditText inputView) {
